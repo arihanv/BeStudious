@@ -3,9 +3,11 @@ import { MoreVertical } from "lucide-react"
 
 import Reactions from "./reactions"
 
-type Props = {}
+type Props = {
+    name: string
+}
 
-export default function Post({}: Props) {
+export default function Post({name}: Props) {
   return (
     <div className="w-full max-w-[400px] gap-3 flex flex-col">
       <div className="flex justify-between items-center px-3">
@@ -13,7 +15,7 @@ export default function Post({}: Props) {
           <div className="w-8 h-8 bg-red-500 rounded-full"></div>
 
           <div className="flex flex-col gap-1 text-xs">
-            <div>James Bond</div>
+            <div>{name}</div>
             <div>8:00 AM • 2h late</div>
           </div>
         </div>
