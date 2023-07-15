@@ -4,15 +4,15 @@ import { MoreVertical } from "lucide-react"
 import Reactions from "./reactions"
 
 type Props = {
-    name: string
+  name: string
 }
 
-export default function Post({name}: Props) {
+export default function Post({ name }: Props) {
   return (
-    <div className="w-full max-w-[400px] gap-3 flex flex-col">
-      <div className="flex justify-between items-center px-3">
-        <div className="flex gap-2 items-center">
-          <div className="w-8 h-8 bg-red-500 rounded-full"></div>
+    <div className="flex w-full max-w-[400px] flex-col gap-3">
+      <div className="flex items-center justify-between px-3">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-full bg-red-500"></div>
 
           <div className="flex flex-col gap-1 text-xs">
             <div>{name}</div>
@@ -23,8 +23,8 @@ export default function Post({name}: Props) {
           <MoreVertical />
         </div>
       </div>
-      <div className=" bg-slate-800 h-[450px] rounded-xl border-2 border-black ring-2 ring-slate-900 p-2 relative flex items-center justify-center">
-        "Image Here"
+      <div className=" relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900">
+        {"[Image Here]"}
         <div className="absolute bottom-0 right-0 p-3">
           <Reactions />
         </div>
