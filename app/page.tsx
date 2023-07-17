@@ -15,12 +15,25 @@ export default function IndexPage() {
           Go To Feed
         </Link>
         <Link
-          target="_blank"
           rel="noreferrer"
-          href={siteConfig.links.github}
+          href="/leaderboard"
+          className={buttonVariants()}
+        >
+          Leaderboard
+        </Link>
+        <Link
+          href="/feed"
+          rel="noreferrer"
           className={buttonVariants({ variant: "outline" })}
         >
-          GitHub
+          Github
+        </Link>
+        <Link
+          href="/studiousspaces"
+          rel="noreferrer"
+          className={buttonVariants({ variant: "outline" })}
+        >
+           <img src="/assets/studious_spaces_logo.png" alt="Studious Spaces Logo" width="40"/>
         </Link>
       </div>
     </section>
