@@ -17,9 +17,9 @@ export default function IndexPage() {
         <Link
           rel="noreferrer"
           href="/leaderboard"
-          className={buttonVariants()}
+          className={buttonVariants({ variant: "outline" })}
         >
-          Leaderboard
+          <img src="/assets/leaderboard.png" alt="Leaderboard Icon" width="40"/>
         </Link>
         <Link
           href="/feed"
@@ -33,7 +33,7 @@ export default function IndexPage() {
           rel="noreferrer"
           className={buttonVariants({ variant: "outline" })}
         >
-           <img src="/assets/studious_spaces_logo.png" alt="Studious Spaces Logo" width="40"/>
+           <img src="/assets/studious_spaces_logo.png" alt="Studious Spaces Icon" width="40"/>
         </Link>
       </div>
     </section>
