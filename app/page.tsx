@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
+import { Medal, Users } from "lucide-react"
 
 export default function IndexPage() {
   return (
@@ -15,12 +16,25 @@ export default function IndexPage() {
           Go To Feed
         </Link>
         <Link
-          target="_blank"
           rel="noreferrer"
-          href={siteConfig.links.github}
+          href="/leaderboard"
           className={buttonVariants({ variant: "outline" })}
         >
-          GitHub
+      <Medal />
+        </Link>
+        <Link
+          href="/feed"
+          rel="noreferrer"
+          className={buttonVariants({ variant: "outline" })}
+        >
+          Github
+        </Link>
+        <Link
+          href="/spaces"
+          rel="noreferrer"
+          className={buttonVariants({ variant: "outline" })}
+        >
+          <Users/>
         </Link>
       </div>
     </section>

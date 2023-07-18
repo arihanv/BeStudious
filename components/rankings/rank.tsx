@@ -1,6 +1,5 @@
-import React from "react"
-import { Flame } from "lucide-react"
-
+import React from "react";
+import { Flame } from "lucide-react";
 type Props = {}
 
 export default function Rank({}: Props) {
