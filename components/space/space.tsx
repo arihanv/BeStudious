@@ -20,7 +20,7 @@ export default function Space({}: Props) {
       </div>
       <hr></hr>
       <div className="flex w-full justify-center">
-        <button className="w-fit rounded-lg bg-blue-800 px-2 py-1 text-sm font-semibold">
+        <button className="w-fit rounded-xl border-2 bg-blue-800 px-2 py-1 text-sm font-semibold">
           {" "}
           <div className="flex items-center gap-1">
             <PlusCircle width={20} /> Request To Join

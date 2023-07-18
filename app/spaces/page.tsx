@@ -1,4 +1,5 @@
-import SpaceGrid from "../../components/space/spaceGrid"
+import SpaceGrid from "@/components/space/spaceGrid"
+import UploadButton from "@/components/space/uploadButton"
 
 export default function IndexPage() {
   return (
@@ -7,6 +8,7 @@ export default function IndexPage() {
         Studious Spaces
       </div>
       <SpaceGrid />
+      <UploadButton />
     </section>
   )
 }

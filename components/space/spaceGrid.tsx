@@ -6,7 +6,7 @@ type Props = {}
 
 export default function SpaceGrid({}: Props) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-cols-auto w-full max-w-[900px] flex-wrap gap-5">
+    <div className="grid w-full max-w-[900px] auto-cols-auto grid-cols-1 flex-wrap gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <Space />
       <Space />
       <Space />
