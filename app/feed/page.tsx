@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Posts from "@/components/posts/posts"
+import Upload from "./upload"
 
 export default function IndexPage() {
   return (
@@ -16,6 +17,7 @@ export default function IndexPage() {
         <h1 className="text-2xl font-bold">Study In Some Place Different</h1>
         <div className="flex w-full flex-1 border-b"></div>
       </div>
+      <Upload/>
       <Posts />
     </section>
   )
