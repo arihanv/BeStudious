@@ -2,7 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import { Home, Medal, Rss, Settings, Users } from 'lucide-react';
+import { Home, Medal, Rss, Settings, Users } from "lucide-react"
 
 import {
   Menubar,
@@ -28,7 +28,7 @@ export default function MenuNav({}: Props) {
           <MenubarItem>
             {" "}
             <Link className="w-full" href="/">
-              <div className="flex gap-1.5 items-center">
+              <div className="flex items-center gap-1.5">
                 <Home width={15} /> Home
               </div>
             </Link>
@@ -36,7 +36,7 @@ export default function MenuNav({}: Props) {
           <MenubarItem>
             {" "}
             <Link className="w-full" href="/feed">
-            <div className="flex gap-1.5 items-center">
+              <div className="flex items-center gap-1.5">
                 <Rss width={15} /> Feed
               </div>
             </Link>
@@ -44,7 +44,7 @@ export default function MenuNav({}: Props) {
           <MenubarItem>
             {" "}
             <Link className="w-full" href="/leaderboard">
-            <div className="flex gap-1.5 items-center">
+              <div className="flex items-center gap-1.5">
                 <Medal width={15} /> Leaderboard
               </div>
             </Link>
@@ -52,15 +52,18 @@ export default function MenuNav({}: Props) {
           <MenubarItem>
             {" "}
             <Link className="w-full" href="/spaces">
-            <div className="flex gap-1.5 items-center">
+              <div className="flex items-center gap-1.5">
                 <Users width={15} /> Spaces
               </div>
             </Link>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem> <div className="flex gap-1.5 items-center">
-                <Settings width={15} /> Settings
-              </div></MenubarItem>
+          <MenubarItem>
+            {" "}
+            <div className="flex items-center gap-1.5">
+              <Settings width={15} /> Settings
+            </div>
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
