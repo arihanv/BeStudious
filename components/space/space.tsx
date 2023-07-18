@@ -1,5 +1,5 @@
 import React from "react"
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, UserPlus } from "lucide-react"
 
 type Props = {}
 
@@ -20,10 +20,10 @@ export default function Space({}: Props) {
       </div>
       <hr></hr>
       <div className="flex w-full justify-center">
-        <button className="w-fit rounded-xl border-2 bg-blue-800 px-2 py-1 text-sm font-semibold">
+        <button className="w-fit rounded-xl border-2 bg-blue-800 px-2.5 py-1 text-sm font-semibold">
           {" "}
-          <div className="flex items-center gap-1">
-            <PlusCircle width={20} /> Request To Join
+          <div className="flex items-center gap-1.5">
+            <UserPlus width={20} /> Request To Join
           </div>
         </button>
       </div>

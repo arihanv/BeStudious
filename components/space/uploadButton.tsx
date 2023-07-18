@@ -1,5 +1,5 @@
 import React from "react"
-import { PackagePlus } from "lucide-react"
+import { Users } from "lucide-react"
 
 type Props = {}
 
@@ -9,7 +9,7 @@ export default function UploadButton({}: Props) {
       <div className="flex w-full items-center gap-3">
         <button className="flex flex-1 items-center justify-between gap-3 rounded-xl border-4 border-slate-900 bg-blue-800 p-2 px-3 transition ease-in-out hover:scale-110">
           <div className="flex items-center gap-3 px-2">
-            <PackagePlus />
+            <Users />
             <div className="text-lg font-semibold">Make A Space</div>
           </div>
         </button>
