@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
-import { Medal, Users } from "lucide-react"
+import { Medal, Users, Github} from "lucide-react"
 
 export default function IndexPage() {
   return (
@@ -23,11 +23,11 @@ export default function IndexPage() {
       <Medal />
         </Link>
         <Link
-          href="/feed"
+          href="https://github.com/arihanv/BeStudious"
           rel="noreferrer"
           className={buttonVariants({ variant: "outline" })}
         >
-          Github
+          <Github />
         </Link>
         <Link
           href="/spaces"
