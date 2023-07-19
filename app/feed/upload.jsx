@@ -14,7 +14,7 @@ export default function Upload() {
         const form = new FormData();
         form.append('file', file);
 
-        const response = await fetch(process.env.DISCORD_WEBHOOK_URL, {
+        const response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
             method: 'POST',
             body: form
         });

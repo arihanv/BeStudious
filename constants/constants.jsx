@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = PROJECT_URL;
-const supabaseKey = SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SERVICE_ROLE_KEY;
 const supabaseOptions = {auth: { persistSession: false }}; // Disable session persistence
 
 console.log(process.env)
