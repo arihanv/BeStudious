@@ -1,18 +1,14 @@
 import Link from "next/link"
+import { Github, Medal, Users } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
-import { Medal, Users, Github} from "lucide-react"
 
 export default function IndexPage() {
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex gap-4">
-        <Link
-          href="/feed"
-          rel="noreferrer"
-          className={buttonVariants()}
-        >
+        <Link href="/feed" rel="noreferrer" className={buttonVariants()}>
           Go To Feed
         </Link>
         <Link
@@ -20,7 +16,7 @@ export default function IndexPage() {
           href="/leaderboard"
           className={buttonVariants({ variant: "outline" })}
         >
-      <Medal />
+          <Medal />
         </Link>
         <Link
           href="https://github.com/arihanv/BeStudious"
@@ -34,7 +30,7 @@ export default function IndexPage() {
           rel="noreferrer"
           className={buttonVariants({ variant: "outline" })}
         >
-          <Users/>
+          <Users />
         </Link>
       </div>
     </section>
