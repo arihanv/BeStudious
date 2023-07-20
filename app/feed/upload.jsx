@@ -50,7 +50,7 @@ const {user} = useUser()
         name={data[0].name}
         imageUrl={data[0].href}
         createdAt={data[0].created_at}
-        profileUrl={data[0].profileUrl}
+        profileImgUrl={data[0].profileUrl}
         key={posts.length}
       />
     )
