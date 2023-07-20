@@ -23,6 +23,13 @@ const createPost = (
   key: Number
 ) => {}
 
+type DataItem = {
+  name: string
+  href: string
+  created_at: string
+  profileUrl: string
+}
+
 export default function Posts({ posts, setPosts }: Props) {
   useEffect(() => {
     const fetchPosts = async () => {
@@ -38,12 +45,16 @@ export default function Posts({ posts, setPosts }: Props) {
         console.error("Error fetching posts:", error.message)
       }
 
-      for (let index in data) {
+      if (data === null)
+        return console.error("Error fetching posts:", error.message)
+
+      for (let index in data as DataItem[]) {
         fetchedPosts.push(
           <Post
             name={data[index].name}
             imageUrl={data[index].href}
             createdAt={data[index].created_at}
+            profileImgUrl={data[index].profileUrl}
             key={index}
           />
         )
