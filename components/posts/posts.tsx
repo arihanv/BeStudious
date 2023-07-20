@@ -24,18 +24,18 @@ const createPost = (
 ) => {}
 
 type DataItem = {
-  name: string;
-  href: string;
-  created_at: string;
-  profileUrl: string;
-};
+  name: string
+  href: string
+  created_at: string
+  profileUrl: string
+}
 
 export default function Posts({ posts, setPosts }: Props) {
   useEffect(() => {
     const fetchPosts = async () => {
       let fetchedPosts = []
 
-      const { data , error } = await supabaseClient
+      const { data, error } = await supabaseClient
         .from("images")
         .select()
         .order("created_at", { ascending: false })
@@ -44,8 +44,9 @@ export default function Posts({ posts, setPosts }: Props) {
       if (error) {
         console.error("Error fetching posts:", error.message)
       }
-      
-      if(data === null) return console.error("Error fetching posts:", error.message)
+
+      if (data === null)
+        return console.error("Error fetching posts:", error.message)
 
       for (let index in data as DataItem[]) {
         fetchedPosts.push(

@@ -14,17 +14,17 @@ export function SiteHeader() {
           <MenuNav />
         </div>
         <div className="w-28">
-        <SignedOut>
-          <SignInButton>
-            <Button className="flex w-full flex-row gap-2">
-              Sign in
-              <UserPlus className="w-4 h-4" />
-            </Button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <Button className="flex w-full flex-row gap-2">
+                Sign in
+                <UserPlus className="w-4 h-4" />
+              </Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </header>

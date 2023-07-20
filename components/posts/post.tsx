@@ -8,10 +8,15 @@ type Props = {
   name: string
   imageUrl: string
   createdAt: string
-  profileImgUrl: string,
+  profileImgUrl: string
 }
 
-export default function Post({ name, imageUrl, createdAt, profileImgUrl}: Props) {
+export default function Post({
+  name,
+  imageUrl,
+  createdAt,
+  profileImgUrl,
+}: Props) {
   const currentTime = moment()
   const postedTime = moment(createdAt, moment.ISO_8601, true)
 

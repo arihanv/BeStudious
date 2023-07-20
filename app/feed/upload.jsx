@@ -2,14 +2,13 @@
 
 import { useState } from "react"
 import supabaseClient from "@/constants/constants.jsx"
-import { v4 as uuidv4 } from "uuid";
-import { useUser } from "@clerk/nextjs";
-
+import { useUser } from "@clerk/nextjs"
+import { v4 as uuidv4 } from "uuid"
 
 import Post from "@/components/posts/post"
 
 export default function Upload({ posts, setPosts }) {
-const {user} = useUser()
+  const { user } = useUser()
   const [file, setFile] = useState([])
   const handleSubmit = async (e) => {
     // Prevent form submission

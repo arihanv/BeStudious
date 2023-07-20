@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+
 import { Badge } from "@/components/ui/badge"
 import Posts from "@/components/posts/posts"
 
