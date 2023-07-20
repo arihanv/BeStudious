@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
-import supabaseClient from "@/constants/constants.jsx"
+import { v4 as uuidv4 } from "uuid";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@clerk/nextjs"
+
 
 
 export default function Upload() {
+    const { isLoaded, userId, sessionId, getToken } = useAuth()
     const [ file, setFile ] = useState([]);
     const handleSubmit = async (e) => {
         // Prevent form submission
