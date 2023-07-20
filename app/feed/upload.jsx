@@ -3,13 +3,13 @@
 import { useState } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { v4 as uuidv4 } from "uuid";
-import { useAuth } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs";
 
 
 import Post from "@/components/posts/post"
 
 export default function Upload({ posts, setPosts }) {
-  const { isLoaded, userId, sessionId, getToken } = useAuth()
+const {user} = useUser()
   const [file, setFile] = useState([])
   const handleSubmit = async (e) => {
     // Prevent form submission
@@ -32,9 +32,10 @@ export default function Upload({ posts, setPosts }) {
       .from("images")
       .insert([
         {
-          name: "Anonymous",
+          name: `${user.firstName} ${user.lastName}`,
           href: imageUrl,
-          username: "Anonymous",
+          userId: user.id,
+          profileUrl: user.imageUrl,
         },
       ])
       .select()
@@ -49,6 +50,7 @@ export default function Upload({ posts, setPosts }) {
         name={data[0].name}
         imageUrl={data[0].href}
         createdAt={data[0].created_at}
+        profileUrl={data[0].profileUrl}
         key={posts.length}
       />
     )

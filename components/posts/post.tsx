@@ -8,9 +8,10 @@ type Props = {
   name: string
   imageUrl: string
   createdAt: string
+  profileImgUrl: string,
 }
 
-export default function Post({ name, imageUrl, createdAt }: Props) {
+export default function Post({ name, imageUrl, createdAt, profileImgUrl}: Props) {
   const currentTime = moment()
   const postedTime = moment(createdAt, moment.ISO_8601, true)
 
@@ -34,7 +35,7 @@ export default function Post({ name, imageUrl, createdAt }: Props) {
     <div className="flex w-full max-w-[400px] flex-col gap-3">
       <div className="flex items-center justify-between px-3">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-red-500"></div>
+          <img className="h-8 w-8 rounded-full" src={profileImgUrl}></img>
 
           <div className="flex flex-col gap-1 text-xs">
             <div>{name}</div>
