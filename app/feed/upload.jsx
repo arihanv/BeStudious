@@ -2,9 +2,7 @@
 
 import { useState } from "react"
 import supabaseClient from "@/constants/constants.jsx"
-import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { supabase } from "@/lib/supabase";
 import { useAuth } from "@clerk/nextjs"
 
 
