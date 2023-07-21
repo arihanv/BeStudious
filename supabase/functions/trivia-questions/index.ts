@@ -7,8 +7,7 @@ serve(async (req) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer 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", // REPLACE_OPENAI_API_KEY",
+        Authorization: `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -19,7 +18,11 @@ serve(async (req) => {
           },
           {
             role: "user",
-            content: `everyday you will create a prompt that encourages the reader to be more studious on a productivity application. the reader will follow the prompt and post a picture online that shows that completing the task to prove that they are studying. for an example a prompt could be: "go to the library to study". your prompt will give users new ideas on how to boost their productivity and change up their way of studying. generate 1 prompt with simple vocabulary that are easy and accessible actions in 1 sentence. don't use a phrase similar to "post it online" or "share a picture"  since the users already know to do that.`,
+            content: `system instructions: create a trivia question for a trivia question application that will be sent out randomly throughout the day. The trivia question will be on the topic of math, and the difficulty will be at a 6-10th grade level. The trivia question should have 4 multiple choice responses (A, B, C, D).
+
+          The response should be formatted as a JSON file
+          
+          Your task is to create a new trivia question for 4 different topics (math, english, science, and history). generate the questions in an array format with a group key named after the topic.`,
           },
         ],
       }),

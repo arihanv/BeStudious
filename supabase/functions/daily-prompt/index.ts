@@ -1,8 +1,8 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 
-const supabaseUrl = ""
-const supabaseKey = ""
+const supabaseUrl = Deno.env.get("SUPABASE_URL")
+const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
 const supabaseOptions = { auth: { persistSession: false } } // Disable session persistence
 
 serve(async (req) => {
@@ -14,8 +14,7 @@ serve(async (req) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer REPLACE_OPENAI_API_KEY",
+        Authorization: `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -34,6 +33,7 @@ serve(async (req) => {
   )
 
   const json = await dailyPromptResponse.json()
+  console.log(json)
   const dailyPrompt = JSON.parse(json.choices[0].message.content).prompt
 
   console.log(`Daily prompt: ${dailyPrompt}`)
@@ -59,5 +59,5 @@ serve(async (req) => {
     )
   }
 
-  return 200;
+  return 200
 })
