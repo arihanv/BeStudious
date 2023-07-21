@@ -1,9 +1,8 @@
 import React from "react"
+import { currentUser } from "@clerk/nextjs"
 
 import ProfileHeader from "@/components/profile/profileHeader"
 import UserPosts from "@/components/profile/userPosts"
-
-import { currentUser } from "@clerk/nextjs"
 
 export default async function Profile() {
   const user = await currentUser()

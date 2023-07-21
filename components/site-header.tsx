@@ -18,7 +18,7 @@ export function SiteHeader() {
             <SignInButton>
               <Button className="flex w-full flex-row gap-2">
                 Sign in
-                <UserPlus className="w-4 h-4" />
+                <UserPlus className="h-4 w-4" />
               </Button>
             </SignInButton>
           </SignedOut>

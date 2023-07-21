@@ -1,4 +1,5 @@
 import React from "react"
+
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 
@@ -6,8 +7,7 @@ type Props = {
   user: any
 }
 
-
-export default function ProfileHeader({user}: Props) {
+export default function ProfileHeader({ user }: Props) {
   const friendCode = "123456"
   // user.imageUrl
   return (
@@ -18,7 +18,9 @@ export default function ProfileHeader({user}: Props) {
           src={user?.imageUrl}
         ></img>
         <div className="flex h-full flex-1 flex-col gap-1">
-          <div className="text-left text-3xl font-bold">{user?.firstName} {user?.lastName}</div>
+          <div className="text-left text-3xl font-bold">
+            {user?.firstName} {user?.lastName}
+          </div>
           <div className="flex flex-wrap">
             <div className="flex flex-wrap items-center gap-4 font-medium">
               <div className="pl-0.5">60 Posts</div>
