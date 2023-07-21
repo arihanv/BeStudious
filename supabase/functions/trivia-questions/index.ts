@@ -1,4 +1,9 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
+
+const supabaseUrl = Deno.env.get("SUPABASE_URL")
+const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+const supabaseOptions = { auth: { persistSession: false } } // Disable session persistence
 
 serve(async (req) => {
   const triviaResponse = await fetch(
@@ -30,7 +35,31 @@ serve(async (req) => {
   )
 
   const json = await triviaResponse.json()
-  const triviaQuestions = json.choices[0].message.content
+  console.log(json)
+  const triviaQuestions = JSON.parse(json.choices[0].message.content).questions
 
   console.log(`Trivia questions:\n${JSON.stringify(triviaQuestions, null, 4)}`)
+
+  console.log("Inserting into Supabase...")
+
+  const supabaseClient = createClient(supabaseUrl, supabaseKey, supabaseOptions)
+
+  const { data, error } = await supabaseClient
+    .from("trivia_questions")
+    .insert([
+      {
+        questions: triviaQuestions,
+      },
+    ])
+    .select()
+
+  if (error) {
+    console.error("Error inserting data: ", error)
+  } else {
+    console.log(
+      `Inserted into Supabase. Response:\n${JSON.stringify(data, null, 4)}`
+    )
+  }
+
+  return 200
 })
