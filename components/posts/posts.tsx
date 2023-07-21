@@ -7,21 +7,6 @@ type Props = {
   posts: any
   setPosts(arg0: any): void
 }
-type Image = {
-  id: Number
-  created_at: String
-  name: String
-  href: String
-  username: String
-  img_src: null
-}
-
-const createPost = (
-  created_at: string,
-  name: string,
-  href: string,
-  key: Number
-) => {}
 
 type DataItem = {
   name: string
@@ -41,12 +26,9 @@ export default function Posts({ posts, setPosts }: Props) {
         .order("created_at", { ascending: false })
         .limit(10)
 
-      if (error) {
+      if (error || data === null) {
         console.error("Error fetching posts:", error.message)
       }
-
-      if (data === null)
-        return console.error("Error fetching posts:", error.message)
 
       for (let index in data as DataItem[]) {
         fetchedPosts.push(
