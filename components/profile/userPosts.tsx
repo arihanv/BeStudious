@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Post from '../posts/post'
 import supabaseClient from '@/constants/constants'
 
 type Props = {
-    user: any
+  user: any
 }
 
 type DataItem = {
@@ -15,34 +15,42 @@ type DataItem = {
   profileUrl: string
 }
 
-export default async function UserPosts({user}: Props) {
-  let fetchedPosts = []
+export default function UserPosts({ user }: Props) {
+  const [fetchedPosts, setFetchedPosts] = useState([]);
 
-  const { data, error } = await supabaseClient
-    .from("images")
-    .select()
-    .order("created_at", { ascending: false })
-    .eq("userId", user.id)
+  useEffect(() => {
+    let tempPostsArray: Array<any> = [];
 
-  if (error || data === null) {
-    return console.error("Error fetching posts:", error.message)
-  }
+    supabaseClient
+      .from("images")
+      .select()
+      .order("created_at", { ascending: false })
+      .eq("userId", user.id).then(result => {
+        const { data, error } = result;
 
-  for (let index in data as DataItem[]) {
-    fetchedPosts.push(
-      <Post
-        name={data[index].name}
-        imageUrl={data[index].href}
-        createdAt={data[index].created_at}
-        profileImgUrl={data[index].profileUrl}
-        key={index}
-      />
-    )
-  }
+        if (error || data === null) {
+          return console.error("Error fetching posts:", error.message)
+        }
+
+        for (let index in data as DataItem[]) {
+          tempPostsArray.push(
+            <Post
+              name={data[index].name}
+              imageUrl={data[index].href}
+              createdAt={data[index].created_at}
+              profileImgUrl={data[index].profileUrl}
+              key={index}
+            />
+          )
+        }
+
+        setFetchedPosts(tempPostsArray);
+      })
+  }, [])
 
   return (
     <>
-    {fetchedPosts}
+      {fetchedPosts}
     </>
   )
 }
