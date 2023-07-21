@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dialog"
 
 import { Button } from "../ui/button"
-
 import { Input } from "../ui/input"
 
 type Props = {}
@@ -36,18 +35,20 @@ export default function UploadButton({}: Props) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Make A Space</DialogTitle>
-            <DialogDescription className="pt-2 flex flex-col gap-5">
+            <DialogDescription className="flex flex-col gap-5 pt-2">
               <div>
-                <label className="text-sm font-medium mb-10">Name</label>
+                <label className="mb-10 text-sm font-medium">Name</label>
                 <Input />
               </div>
               <div>
-                <label className="text-sm font-medium mb-10">Location</label>
+                <label className="mb-10 text-sm font-medium">Location</label>
                 <Input />
               </div>
             </DialogDescription>
-            <DialogFooter className="flex justify-center items-center w-full flex-1 pt-2">
-              <div className="m-auto"><Button>Make Space</Button></div>
+            <DialogFooter className="flex w-full flex-1 items-center justify-center pt-2">
+              <div className="m-auto">
+                <Button>Make Space</Button>
+              </div>
             </DialogFooter>
           </DialogHeader>
         </DialogContent>
