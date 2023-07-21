@@ -39,7 +39,7 @@ export default function IndexPage() {
         <h1 className="text-2xl font-bold">{dailyPrompt}</h1>
         <div className="flex w-full flex-1 border-b"></div>
       </div>
-      <div className="fixed bottom-0 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm z-20">
+      <div className="fixed bottom-0 z-20 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
         <div className="w-fit rounded-xl border-2 bg-blue-800 px-2.5 py-1 text-sm font-semibold">
           <Upload posts={posts} setPosts={setPosts} />
         </div>

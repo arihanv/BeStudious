@@ -1,6 +1,16 @@
 import React from "react"
-import { MoreVertical } from "lucide-react"
+import { Menu, MoreVertical, Trash } from "lucide-react"
 import moment from "moment"
+
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar"
 
 import Reactions from "./reactions"
 
@@ -41,15 +51,25 @@ export default function Post({
       <div className="flex items-center justify-between px-3">
         <div className="flex items-center gap-2">
           <img className="h-8 w-8 rounded-full" src={profileImgUrl}></img>
-
           <div className="flex flex-col gap-1 text-xs">
             <div>{name}</div>
             <div>{formattedTime}</div>
           </div>
         </div>
-        <div>
-          <MoreVertical />
-        </div>
+        <Menubar loop={true}>
+          <MenubarMenu>
+            <MenubarTrigger className="px-1">
+              <MoreVertical />
+            </MenubarTrigger>
+            <MenubarContent side="bottom">
+              <MenubarItem>
+                <div className="flex items-center gap-2">
+                  <Trash size={20} color="red" /> Delete
+                </div>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
       </div>
       <div
         style={{
@@ -60,9 +80,7 @@ export default function Post({
         }}
         className="relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900"
       >
-        <div className="absolute bottom-0 right-0 p-3">
-          <Reactions />
-        </div>
+        <Reactions />
       </div>
     </div>
   )

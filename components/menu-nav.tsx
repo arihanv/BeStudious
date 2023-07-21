@@ -2,7 +2,15 @@
 
 import React from "react"
 import Link from "next/link"
-import { Home, Medal, Rss, Settings, Users } from "lucide-react"
+import {
+  Contact,
+  GraduationCap,
+  Home,
+  Medal,
+  Rss,
+  Settings,
+  Users,
+} from "lucide-react"
 
 import {
   Menubar,
@@ -43,6 +51,14 @@ export default function MenuNav({}: Props) {
           </MenubarItem>
           <MenubarItem>
             {" "}
+            <Link className="w-full" href="/trivia">
+              <div className="flex items-center gap-1.5">
+                <GraduationCap width={15} /> Trivia
+              </div>
+            </Link>
+          </MenubarItem>
+          <MenubarItem>
+            {" "}
             <Link className="w-full" href="/leaderboard">
               <div className="flex items-center gap-1.5">
                 <Medal width={15} /> Leaderboard
@@ -54,6 +70,14 @@ export default function MenuNav({}: Props) {
             <Link className="w-full" href="/spaces">
               <div className="flex items-center gap-1.5">
                 <Users width={15} /> Spaces
+              </div>
+            </Link>
+          </MenubarItem>
+          <MenubarItem>
+            {" "}
+            <Link className="w-full" href="/profile">
+              <div className="flex items-center gap-1.5">
+                <Contact width={15} /> Profile
               </div>
             </Link>
           </MenubarItem>
