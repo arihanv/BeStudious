@@ -2,7 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import { Home, Medal, Rss, Settings, Users } from "lucide-react"
+import { Contact, Home, Medal, Rss, Settings, Users } from "lucide-react"
 
 import {
   Menubar,
@@ -54,6 +54,14 @@ export default function MenuNav({}: Props) {
             <Link className="w-full" href="/spaces">
               <div className="flex items-center gap-1.5">
                 <Users width={15} /> Spaces
+              </div>
+            </Link>
+          </MenubarItem>
+          <MenubarItem>
+            {" "}
+            <Link className="w-full" href="/profile">
+              <div className="flex items-center gap-1.5">
+                <Contact width={15} /> Profile
               </div>
             </Link>
           </MenubarItem>
