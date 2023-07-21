@@ -1,6 +1,16 @@
 import React from "react"
-import { MoreVertical } from "lucide-react"
+import { Menu, MoreVertical, Trash } from "lucide-react"
 import moment from "moment"
+
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar"
 
 import Reactions from "./reactions"
 
@@ -46,9 +56,20 @@ export default function Post({
             <div>{formattedTime}</div>
           </div>
         </div>
-        <div>
-          <MoreVertical />
-        </div>
+        <Menubar loop={true}>
+          <MenubarMenu>
+            <MenubarTrigger className="px-1">
+              <MoreVertical />
+            </MenubarTrigger>
+            <MenubarContent side="bottom">
+              <MenubarItem>
+                <div className="flex items-center gap-2">
+                <Trash size={20} color="red"/> Delete
+                </div>
+                </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
       </div>
       <div
         style={{
