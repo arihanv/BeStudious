@@ -44,7 +44,7 @@ export default function UserPosts({ user }: Props) {
           )
         }
 
-        setFetchedPosts(tempPostsArray);
+        setFetchedPosts(tempPostsArray as never[]);
       })
   }, [])
 
