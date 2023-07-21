@@ -11,7 +11,7 @@ export default async function Profile() {
       <div className="flex w-full max-w-[480px] flex-1 flex-col gap-10">
         <ProfileHeader user={user} />
         <div className="flex flex-col items-center gap-12">
-        <UserPosts user={user} />
+          <UserPosts user={user} />
         </div>
       </div>
     </section>

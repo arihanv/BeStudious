@@ -64,9 +64,9 @@ export default function Post({
             <MenubarContent side="bottom">
               <MenubarItem>
                 <div className="flex items-center gap-2">
-                <Trash size={20} color="red"/> Delete
+                  <Trash size={20} color="red" /> Delete
                 </div>
-                </MenubarItem>
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

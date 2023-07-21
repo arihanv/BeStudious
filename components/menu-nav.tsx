@@ -2,7 +2,15 @@
 
 import React from "react"
 import Link from "next/link"
-import { Contact, GraduationCap, Home, Medal, Rss, Settings, Users } from "lucide-react"
+import {
+  Contact,
+  GraduationCap,
+  Home,
+  Medal,
+  Rss,
+  Settings,
+  Users,
+} from "lucide-react"
 
 import {
   Menubar,

@@ -4,6 +4,7 @@ import React from "react"
 
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
 import { Button } from "../ui/button"
 
 type Props = {}
@@ -11,7 +12,7 @@ type Props = {}
 export default function TriviaQuestion({}: Props) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="font-medium text-xl">
+      <div className="text-xl font-medium">
         Q: What is the capital of the United States?
       </div>
       <RadioGroup defaultValue="option-one">
@@ -24,8 +25,8 @@ export default function TriviaQuestion({}: Props) {
           <Label htmlFor="option-two">Option Two</Label>
         </div>
       </RadioGroup>
-      <div className="flex justify-center mt-2">
-      <Button size={"sm"}>Submit</Button>
+      <div className="mt-2 flex justify-center">
+        <Button size={"sm"}>Submit</Button>
       </div>
     </div>
   )

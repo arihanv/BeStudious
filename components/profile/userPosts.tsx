@@ -1,8 +1,9 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from 'react'
-import Post from '../posts/post'
-import supabaseClient from '@/constants/constants'
+import React, { useEffect, useState } from "react"
+import supabaseClient from "@/constants/constants"
+
+import Post from "../posts/post"
 
 type Props = {
   user: any
@@ -16,17 +17,18 @@ type DataItem = {
 }
 
 export default function UserPosts({ user }: Props) {
-  const [fetchedPosts, setFetchedPosts] = useState([]);
+  const [fetchedPosts, setFetchedPosts] = useState([])
 
   useEffect(() => {
-    let tempPostsArray: Array<any> = [];
+    let tempPostsArray: Array<any> = []
 
     supabaseClient
       .from("images")
       .select()
       .order("created_at", { ascending: false })
-      .eq("userId", user.id).then(result => {
-        const { data, error } = result;
+      .eq("userId", user.id)
+      .then((result) => {
+        const { data, error } = result
 
         if (error || data === null) {
           return console.error("Error fetching posts:", error.message)
@@ -44,13 +46,9 @@ export default function UserPosts({ user }: Props) {
           )
         }
 
-        setFetchedPosts(tempPostsArray as never[]);
+        setFetchedPosts(tempPostsArray as never[])
       })
   }, [])
 
-  return (
-    <>
-      {fetchedPosts}
-    </>
-  )
+  return <>{fetchedPosts}</>
 }
