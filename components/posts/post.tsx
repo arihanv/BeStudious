@@ -41,7 +41,6 @@ export default function Post({
       <div className="flex items-center justify-between px-3">
         <div className="flex items-center gap-2">
           <img className="h-8 w-8 rounded-full" src={profileImgUrl}></img>
-
           <div className="flex flex-col gap-1 text-xs">
             <div>{name}</div>
             <div>{formattedTime}</div>
@@ -60,9 +59,7 @@ export default function Post({
         }}
         className="relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900"
       >
-        <div className="absolute bottom-0 right-0 p-3">
           <Reactions />
-        </div>
       </div>
     </div>
   )
