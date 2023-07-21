@@ -2,7 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import { Contact, Home, Medal, Rss, Settings, Users } from "lucide-react"
+import { Contact, GraduationCap, Home, Medal, Rss, Settings, Users } from "lucide-react"
 
 import {
   Menubar,
@@ -38,6 +38,14 @@ export default function MenuNav({}: Props) {
             <Link className="w-full" href="/feed">
               <div className="flex items-center gap-1.5">
                 <Rss width={15} /> Feed
+              </div>
+            </Link>
+          </MenubarItem>
+          <MenubarItem>
+            {" "}
+            <Link className="w-full" href="/trivia">
+              <div className="flex items-center gap-1.5">
+                <GraduationCap width={15} /> Trivia
               </div>
             </Link>
           </MenubarItem>
