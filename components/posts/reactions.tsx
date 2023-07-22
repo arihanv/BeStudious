@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
-import { Loader2, Smile } from "lucide-react"
+import { Smile } from "lucide-react"
 
 import {
   Menubar,
@@ -10,12 +10,6 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 type Props = {
   postId: Number,
@@ -104,14 +98,6 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
     }
   }
 
-  if (emojiData === undefined || emojiData === null) {
-    return (
-      <div className="absolute bottom-0 right-0 rounded-tl-xl bg-black p-2">
-        <Smile />
-      </div>
-    )
-  }
-
   return (
     <div className="absolute bottom-0 right-0 rounded-tl-xl bg-black p-0">
       <Menubar loop={true}>
@@ -120,45 +106,26 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
             <Smile />
           </MenubarTrigger>
           <MenubarContent side="top" className="flex !min-w-0 flex-col">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <MenubarItem onClick={() => handleEmojis("thumbsup")}>
-                    👍
-                  </MenubarItem>
-                </TooltipTrigger>
-                <TooltipContent className="text-sm" side="right">
-                  {emojiData.thumbsup &&
-                    emojiData.thumbsup.map((name: string) => <p>{name}</p>)}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <MenubarItem onClick={() => handleEmojis("fire")}>
-                    🔥
-                  </MenubarItem>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  {emojiData.fire &&
-                    emojiData.fire.map((name: string) => <p>{name}</p>)}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <MenubarItem onClick={() => handleEmojis("nerd")}>
-                    🤓
-                  </MenubarItem>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  {emojiData.nerd &&
-                    emojiData.nerd.map((name: string) => <p>{name}</p>)}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <MenubarItem
+              className="cursor-pointer"
+              onClick={() => handleEmojis("thumbsup")}
+            >
+              👍
+            </MenubarItem>
+
+            <MenubarItem
+              className="cursor-pointer"
+              onClick={() => handleEmojis("fire")}
+            >
+              🔥
+            </MenubarItem>
+
+            <MenubarItem
+              className="cursor-pointer"
+              onClick={() => handleEmojis("nerd")}
+            >
+              🤓
+            </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>

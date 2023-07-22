@@ -13,6 +13,12 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import Delete from "./delete"
 import Reactions from "./reactions"
@@ -126,13 +132,46 @@ export default function Post({
           <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-sm">
             <div className="flex flex-col gap-1">
               {postReactions.thumbsup && postReactions.thumbsup.length > 0 && (
-                <div>👍 x {postReactions.thumbsup.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>👍 x {postReactions.thumbsup.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {postReactions.thumbsup.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {postReactions.fire && postReactions.fire.length > 0 && (
-                <div>🔥 x {postReactions.fire.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>🔥 x {postReactions.fire.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {postReactions.fire.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {postReactions.nerd && postReactions.nerd.length > 0 && (
-                <div>🤓 x {postReactions.nerd.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>🤓 x {postReactions.nerd.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {postReactions.nerd.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
             </div>
           </div>
