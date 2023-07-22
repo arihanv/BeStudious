@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { Menu, MoreVertical, Trash } from "lucide-react"
 import moment from "moment"
