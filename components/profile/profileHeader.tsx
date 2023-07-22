@@ -2,6 +2,7 @@ import React from "react"
 
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
+import AddFriends from "./addFriends"
 
 type Props = {
   user: any
@@ -29,15 +30,7 @@ export default function ProfileHeader({ user }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 justify-center rounded-xl bg-slate-900 py-2">
-        {!friendCode ? (
-          <Button size={"sm"}>Generate Friend Code</Button>
-        ) : (
-          <div className="flex items-center gap-2">
-            Friend Code: <Badge className="text-sm">{friendCode}</Badge>
-          </div>
-        )}
-      </div>
+     <AddFriends friendCode={friendCode}/>
     </div>
   )
 }
