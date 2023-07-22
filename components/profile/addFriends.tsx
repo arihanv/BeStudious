@@ -57,23 +57,29 @@ export default function AddFriends({ friendCode }: Props) {
       return
     }
 
-    const oldFriends = data[0].friends
+    const oldFriends = data[0].friends;
+    const oldFriendIds = oldFriends.map(user => user.id);
 
-    if (oldFriends.includes(friendData.id)) {
+    if (oldFriendIds.includes(friendData.id)) {
       setServerResponse(`You are already friends with ${friendData.full_name}!`)
       return
     }
 
     ;({ data, error } = await supabaseClient
       .from("users")
-      .update({ friends: [...oldFriends, friendData?.id] })
+      .update({ friends: [...oldFriends, {id: friendData?.id, full_name: friendData.full_name}] })
       .eq("id", user?.id))
-
+ 
     if (error) {
       console.error(`Error adding friend: ${error}`)
       setServerResponse(`Error adding friend: ${error}`)
       return
     }
+
+    ;({ data, error } = await supabaseClient
+      .from("users")
+      .update({ friends: [...friendData.friends, {id: user?.id, full_name: user?.fullName}] })
+      .eq("id", friendData?.id))
 
     setServerResponse(`Added ${friendData.full_name}.`)
   }
@@ -125,7 +131,9 @@ export default function AddFriends({ friendCode }: Props) {
               Add Friend
             </Button>
           </div>
+          <div className="text-sm p-1 pl-2">
           {serverResponse}
+          </div>
         </TabsContent>
       </Tabs>
     </div>
