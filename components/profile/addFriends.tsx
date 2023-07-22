@@ -1,14 +1,13 @@
 "use client"
 
 import React from "react"
+import { UserPlus } from "lucide-react"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-
-import { UserPlus } from "lucide-react"
 
 type Props = {
   friendCode: string
@@ -40,8 +39,11 @@ export default function AddFriends({ friendCode }: Props) {
         </TabsContent>
         <TabsContent value="addFriend">
           <div className="mt-3 flex h-[50px] items-center justify-center gap-2 rounded-lg bg-slate-900 px-1 py-2">
-            <Input placeholder="Enter Friend Code" className="flex-1"/>
-            <Button size={"sm"} className="flex min-w-fit gap-2"><UserPlus size={18}/>Add Friend</Button>
+            <Input placeholder="Enter Friend Code" className="flex-1" />
+            <Button size={"sm"} className="flex min-w-fit gap-2">
+              <UserPlus size={18} />
+              Add Friend
+            </Button>
           </div>
         </TabsContent>
       </Tabs>

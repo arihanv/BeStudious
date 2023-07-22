@@ -6,28 +6,27 @@ import ProfileHeader from "@/components/profile/profileHeader"
 import UserPosts from "@/components/profile/userPosts"
 
 async function getUserPosts() {
-  const user = await currentUser();
+  const user = await currentUser()
 
   try {
     const { data, error } = await supabaseClient
       .from("images")
       .select()
       .order("created_at", { ascending: false })
-      .eq("userId", user?.id);
+      .eq("userId", user?.id)
 
     if (error || data === null) {
-      console.error("Error fetching posts:", error?.message);
-      return { data: [], user, numPosts: 0 };
+      console.error("Error fetching posts:", error?.message)
+      return { data: [], user, numPosts: 0 }
     }
 
-    const numPosts = data.length;
-    return { data, user, numPosts };
+    const numPosts = data.length
+    return { data, user, numPosts }
   } catch (error) {
-    console.error("Error fetching posts:", error);
-    return { data: [], user, numPosts: 0 };
+    console.error("Error fetching posts:", error)
+    return { data: [], user, numPosts: 0 }
   }
 }
-
 
 export default async function Profile() {
   const { data, user, numPosts } = await getUserPosts()

@@ -6,7 +6,7 @@ import AddFriends from "./addFriends"
 
 type Props = {
   user: any
-  numPosts: number,
+  numPosts: number
 }
 
 export default function ProfileHeader({ user, numPosts }: Props) {
@@ -31,7 +31,7 @@ export default function ProfileHeader({ user, numPosts }: Props) {
           </div>
         </div>
       </div>
-     <AddFriends friendCode={friendCode}/>
+      <AddFriends friendCode={friendCode} />
     </div>
   )
 }
