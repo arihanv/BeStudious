@@ -69,12 +69,18 @@ export default function AddFriends({ friendCode }: Props) {
       .from("users")
       .update({ friends: [...oldFriends, {id: friendData?.id, full_name: friendData.full_name}] })
       .eq("id", user?.id))
-
+ 
     if (error) {
       console.error(`Error adding friend: ${error}`)
       setServerResponse(`Error adding friend: ${error}`)
       return
     }
+
+    // Add on their friends list
+    ;({ data, error } = await supabaseClient
+      .from("users")
+      .update({ friends: [...friendData.friends, {id: user?.id, full_name: user?.fullName}] })
+      .eq("id", friendData?.id))
 
     setServerResponse(`Added ${friendData.full_name}.`)
   }

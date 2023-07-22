@@ -26,13 +26,19 @@ export default function UploadButton({}: Props) {
   const createSpace = async () => {
     if (!isSignedIn) return;
 
-    supabaseClient
+    const { data, error } = await supabaseClient
       .from('spaces')
       .insert({
         location: spaceLocation,
         name: spaceName,
         users: [user?.fullName]
       });
+    
+    if (error) {
+      console.error("Error creating space:", error);
+    }
+
+    console.log("Created space.")
   };
 
   return (
