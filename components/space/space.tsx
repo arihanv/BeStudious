@@ -42,6 +42,7 @@ export default function Space({ spaceId, spaceName, spaceLocation, users }: Prop
 
   return (
     <div className="flex w-full max-w-[400px] flex-col gap-1.5 rounded-lg border border-gray-800 bg-gray-900 p-2">
+      <div className="flex flex-1 flex-col gap-1.5">
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold">{spaceName}</h1>
         <p className="text-xs text-gray-400">{inSpace ? spaceLocation : ""}</p>
@@ -51,6 +52,7 @@ export default function Space({ spaceId, spaceName, spaceLocation, users }: Prop
         <ul className="list-disc">
           {usersList}
         </ul>
+      </div>
       </div>
       <hr></hr>
       <div className="flex w-full justify-center">
