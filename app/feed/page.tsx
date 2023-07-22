@@ -36,7 +36,7 @@ export default function IndexPage() {
         <Badge className="" variant={"outline"}>
           {"Today's Prompt"}
         </Badge>
-        <h1 className="text-2xl font-bold">{dailyPrompt}</h1>
+        <h1 className="text-2xl font-bold text-center">{dailyPrompt}</h1>
         <div className="flex w-full flex-1 border-b"></div>
       </div>
       <div className="fixed bottom-0 z-20 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">

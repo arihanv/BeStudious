@@ -29,11 +29,23 @@ export default function UploadButton({ posts, setPosts }) {
     }
     const form = new FormData()
     form.append("file", file)
-    const response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
+    let response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
       method: "POST",
       body: form,
     })
-    const json = await response.json()
+    
+    let json;
+    
+    try {
+      json = await response.json()
+    } catch (e) {
+      response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        body: form,
+      })
+      json = await response.json()
+    }
+
     const imageUrl = json.attachments[0].url
 
     const { data: fetchData, error: fetchError } = await supabaseClient
