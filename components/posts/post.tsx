@@ -1,11 +1,10 @@
 "use client"
 
 import React from "react"
-import { MoreVertical, Flag } from "lucide-react"
-import moment from "moment"
-import { useUser } from "@clerk/nextjs"
 import supabaseClient from "@/constants/constants"
-
+import { useUser } from "@clerk/nextjs"
+import { Flag, MoreVertical } from "lucide-react"
+import moment from "moment"
 
 import {
   Menubar,
@@ -15,18 +14,18 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar"
 
-import Reactions from "./reactions"
 import Delete from "./delete"
+import Reactions from "./reactions"
 
 type Props = {
   // posts: any
   // setPosts(arg0: any): void,
-  postId: Number,
+  postId: Number
   name: string
   imageUrl: string
   createdAt: string
-  profileImgUrl: string,
-  userId: string,
+  profileImgUrl: string
+  userId: string
 }
 
 export default function Post({
@@ -41,9 +40,9 @@ export default function Post({
 }: Props) {
   const deletePost = async (postId: any) => {
     const { error } = await supabaseClient
-      .from('images')
+      .from("images")
       .delete()
-      .eq('id', postId)
+      .eq("id", postId)
 
     if (error) {
       console.error("Error when deleting post", error)
@@ -58,7 +57,7 @@ export default function Post({
       // setPosts(tempPosts)
     }
   }
-  
+
   const { user } = useUser()
 
   const currentTime = moment()
@@ -96,21 +95,27 @@ export default function Post({
               <MoreVertical />
             </MenubarTrigger>
             <MenubarContent side="bottom">
-              {userId === user?.id ?
-                (<div>
-                  <MenubarItem onClick={() => { deletePost(postId) }}>
-                    <div className="flex items-center gap-2" ><Delete /></div>
+              {userId === user?.id ? (
+                <div>
+                  <MenubarItem
+                    onClick={() => {
+                      deletePost(postId)
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Delete />
+                    </div>
                   </MenubarItem>
-                </div>)
-                :
-                (<div>
+                </div>
+              ) : (
+                <div>
                   <MenubarItem>
-                    <div className="flex items-center gap-2" ><Flag size={20} color="red" /> Report</div>
+                    <div className="flex items-center gap-2">
+                      <Flag size={20} color="red" /> Report
+                    </div>
                   </MenubarItem>
-                </div>)
-
-              }
-
+                </div>
+              )}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
@@ -126,6 +131,6 @@ export default function Post({
       >
         <Reactions imgUrl={imageUrl} />
       </div>
-    </div >
+    </div>
   )
 }

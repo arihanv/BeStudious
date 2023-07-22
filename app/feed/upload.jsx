@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react";
-import supabaseClient from "@/constants/constants.jsx";
-import { useUser } from "@clerk/nextjs";
-import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
+import { useState } from "react"
+import supabaseClient from "@/constants/constants.jsx"
+import { useUser } from "@clerk/nextjs"
+import moment from "moment"
+import { v4 as uuidv4 } from "uuid"
 
 import Post from "@/components/posts/post"
 
@@ -51,31 +51,26 @@ export default function Upload({ posts, setPosts }) {
       .order("created_at", { ascending: false })
       .eq("userId", user.id)
       .limit(2)
-    
-    
+
     if (error) {
-      console.error("Error...", error);
-    } 
-    
-    const {data: secondData, error: secondError} = await supabaseClient
+      console.error("Error...", error)
+    }
+
+    const { data: secondData, error: secondError } = await supabaseClient
       .from("daily_prompt")
       .select()
-      .order("created_at", { ascending: false})
+      .order("created_at", { ascending: false })
       .limit(1)
-    
 
-    const createdAtTime = firstData[1].created_at;
-    const secondTime = secondData[0].created_at;
+    const createdAtTime = firstData[1].created_at
+    const secondTime = secondData[0].created_at
 
-
-    const postedTime = moment(createdAtTime, moment.ISO_8601, true);
-    const secondPostedTime = moment(secondTime, moment.ISO_8601, true);
-    const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"));
-    console.log(postedTime);
-    console.log(secondPostedTime);
-    console.log(hourDiff);
-    
-
+    const postedTime = moment(createdAtTime, moment.ISO_8601, true)
+    const secondPostedTime = moment(secondTime, moment.ISO_8601, true)
+    const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"))
+    console.log(postedTime)
+    console.log(secondPostedTime)
+    console.log(hourDiff)
 
     let newPost = (
       <Post

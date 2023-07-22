@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
-import Post from "./post"
 
+import Post from "./post"
 
 type Props = {
   posts: any
-  setPosts(arg0: any): void,
+  setPosts(arg0: any): void
 }
 
 type DataItem = {
