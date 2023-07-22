@@ -50,16 +50,28 @@ export default function Upload({ posts, setPosts, deletePost }) {
       .select()
       .order("created_at", { ascending: false })
       .eq("userId", user.id)
-      .limit(2))
+      .limit(2)
+    )
     
-    const createdAtTime = data[1].created_at;
-    console.log(createdAtTime); 
-
     if (error) {
       console.error("Error...", error);
-    } else {
-      console.log(data);
-    }
+    } 
+    
+    const createdAtTime = data[1].created_at;
+
+    const today = moment().startOf('day');
+    const time = moment('08:00:00', 'HH:mm:ss').utcOffset('-05:00');
+
+    const momentWithHardTime = moment(today).set({
+      hour: time.hour(),
+      minute: time.minute(),
+      second: time.second()
+    });
+
+    // const startTime = momentWithHardTime.format();
+    // const postedTime = moment(createdAtTime, moment.ISO_8601, true);
+    // const hourDiff = Math.abs(startTime.diff(postedTime, "hours"));
+    // console.log(hourDiff);
 
 
     let newPost = (

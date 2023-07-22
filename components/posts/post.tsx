@@ -70,11 +70,16 @@ export default function Post({
               <MoreVertical />
             </MenubarTrigger>
             <MenubarContent side="bottom">
-              <MenubarItem>
-                <div className="flex items-center gap-2">
-                  {userId === user?.id ? <Delete postId={postId} userId={userId} deletePost={deletePost} /> : <><Flag size={20} color="red" /> Report</>}
-                </div>
-              </MenubarItem>
+            {userId === user?.id ?
+              (<div>
+                <MenubarItem onClick={() => { deletePost(postId) }}>
+                  <div className="flex items-center gap-2" ><Delete /></div>
+                </MenubarItem>
+              </div>)
+              :
+              <><Flag size={20} color="red" /> Report</>
+            }
+
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
@@ -90,6 +95,6 @@ export default function Post({
       >
         <Reactions imgUrl={imageUrl} />
       </div>
-    </div>
+    </div >
   )
 }
