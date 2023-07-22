@@ -21,7 +21,7 @@ type Props = {
 async function getEmojis(postId: Number) {
   const { data, error } = await supabaseClient
     .from("images")
-    .select() // Specify the columns you want to retrieve
+    .select()
     .eq("id", postId)
 
   return data[0]

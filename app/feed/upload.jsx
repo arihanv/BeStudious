@@ -50,8 +50,6 @@ export default function Upload({ posts, setPosts }) {
 
     let newPost = (
       <Post
-        // posts={posts}
-        // setPosts={setPosts}
         postId={fetchData[0].id}
         name={fetchData[0].name}
         imageUrl={fetchData[0].href}

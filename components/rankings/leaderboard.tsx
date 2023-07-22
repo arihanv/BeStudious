@@ -10,7 +10,7 @@ import UserRank from "./userrank"
 
 type Props = {}
 
-export default function Leaderboard({ }: Props) {
+export default function Leaderboard({}: Props) {
   const { user, isSignedIn } = useUser()
   const [currentUser, setCurrentUser] = useState({
     full_name: "",
@@ -42,17 +42,14 @@ export default function Leaderboard({ }: Props) {
         tempRankElements.push(rankComponent)
       }
 
-      setRankElements(tempRankElements);
+      setRankElements(tempRankElements)
 
-      (
-        ({ data } = await supabaseClient
-          .from("users")
-          .select()
-          .order("points", { ascending: false })
-          .eq("id", user?.id))
-      )
+      ;({ data } = await supabaseClient
+        .from("users")
+        .select()
+        .eq("id", user?.id))
 
-      setCurrentUser(data[0]);
+      setCurrentUser(data[0])
     }
 
     fetchUser()
@@ -62,13 +59,13 @@ export default function Leaderboard({ }: Props) {
     <div className="flex w-full flex-col items-center gap-3">
       {rankElements}
       <div className="fixed bottom-0 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
-        {currentUser &&
+        {currentUser && (
           <UserRank
             name={currentUser?.full_name}
             imageUrl={currentUser?.image_url}
             points={currentUser?.points}
           />
-        }
+        )}
       </div>
     </div>
   )

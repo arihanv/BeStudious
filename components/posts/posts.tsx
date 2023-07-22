@@ -33,8 +33,6 @@ export default function Posts({ posts, setPosts }: Props) {
       for (let index in data as DataItem[]) {
         fetchedPosts.push(
           <Post
-            // posts={posts}
-            // setPosts={setPosts}
             postId={data[index].id}
             name={data[index].name}
             imageUrl={data[index].href}
