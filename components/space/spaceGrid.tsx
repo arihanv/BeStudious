@@ -1,9 +1,9 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import supabaseClient from "@/constants/constants"
 
 import Space from "./space"
-import supabaseClient from "@/constants/constants"
 
 type Props = {
   spaces: Array<any>,
@@ -26,7 +26,6 @@ export default function SpaceGrid({ spaces, setSpaces }: Props) {
       } else {
         console.error(`Error when fetching spaces: ${error}`)
       }
-
       setSpaces(tempSpaces);
     }
 

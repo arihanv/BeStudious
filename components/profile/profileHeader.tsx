@@ -1,8 +1,10 @@
 import React from "react"
+import supabaseClient from "@/constants/constants.jsx"
 
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import AddFriends from "./addFriends"
+import NumFriends from "./numFriends"
 
 type Props = {
   user: any
@@ -10,7 +12,27 @@ type Props = {
   friendCode: string
 }
 
-export default function ProfileHeader({ user, numPosts, friendCode }: Props) {
+const fetchFriends = async (user: any) => {
+  const { data, error } = await supabaseClient
+    .from("users")
+    .select()
+    .eq("id", user?.id)
+    .limit(1)
+
+  if (error || data === null || data.length === 0) {
+    return null
+  } else {
+    return data[0].friends
+  }
+}
+
+export default async function ProfileHeader({
+  user,
+  numPosts,
+  friendCode,
+}: Props) {
+  const friends = await fetchFriends(user)
+  console.log(friends)
   return (
     <div className="flex h-full flex-1 flex-col gap-5">
       <div className="flex items-center gap-4">
@@ -25,7 +47,7 @@ export default function ProfileHeader({ user, numPosts, friendCode }: Props) {
           <div className="flex flex-wrap">
             <div className="flex flex-wrap items-center gap-4 font-medium">
               <div className="pl-0.5">{numPosts} Posts</div>
-              <div className="pl-0.5">0 Friends</div>
+              <NumFriends friends={friends} />
             </div>
           </div>
         </div>
