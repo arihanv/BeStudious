@@ -50,15 +50,15 @@ export default function Reactions({ imgUrl }: Props) {
     if (fetchData[0][emoji] === null) {
       const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
-        .update([{ [emoji]: [ user.first_name ] }])
+        .update([{ [emoji]: [ user.fullName ] }])
         .eq("href", imgUrl)
         .select()
       if (insertError) {
         console.error("Error occured...", insertError)
       }
-    } else if (!(fetchData[0][emoji]).includes(user.first_name)) {
+    } else if (!(fetchData[0][emoji]).includes(user.fullName)) {
       let array = [...fetchData[0][emoji]];
-      array.push(user.first_name);
+      array.push(user.fullName);
       const { data: insertData, error: insertError } = await supabaseClient 
         .from("images")
         .update([{ [emoji]: array }])
@@ -69,7 +69,7 @@ export default function Reactions({ imgUrl }: Props) {
       }
     } else {
       let array = [...fetchData[0][emoji]];
-      const i = array.indexOf(user.first_name);
+      const i = array.indexOf(user.fullName);
       array.splice(i, 1);
       if (array.length === 0) {
         array = null
