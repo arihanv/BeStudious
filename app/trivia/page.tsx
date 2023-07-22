@@ -31,7 +31,7 @@ export default function Trivia() {
   }, [])
 
   const handleSubmit = () => {
-    alert("Submmited! Check Leaderboard")
+    alert("Submitted! Check Leaderboard")
     console.log(userAnswers)
   }
 
