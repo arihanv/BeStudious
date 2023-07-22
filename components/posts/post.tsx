@@ -24,7 +24,7 @@ type Props = {
   createdAt: string
   profileImgUrl: string
   userId: string
-  reactions: any
+  reactions?: any
 }
 
 export default function Post({
@@ -122,15 +122,15 @@ export default function Post({
       >
         <Reactions imgUrl={imageUrl} />
         {reactions && (
-          <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-xs">
-            <div className="flex flex-col">
-              {reactions.thumbsup.length > 0 && (
+          <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-sm">
+            <div className="flex flex-col gap-1">
+              {reactions.thumbsup && reactions.thumbsup.length > 0 && (
                 <div>👍 x {reactions.thumbsup.length}</div>
               )}
-              {reactions.thumbsdown.length > 0 && (
+              {reactions.thumbsdown && reactions.thumbsdown.length > 0 && (
                 <div>🔥 x {reactions.fire.length}</div>
               )}
-              {reactions.fire.length > 0 && (
+              {reactions.fire && reactions.fire.length > 0 && (
                 <div>🤓 x {reactions.nerd.length}</div>
               )}
             </div>
