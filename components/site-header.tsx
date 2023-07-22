@@ -1,73 +1,77 @@
 "use client"
 
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
-import { UserPlus } from "lucide-react"
-import { useUser } from "@clerk/nextjs"
 import { useEffect } from "react"
 import supabaseClient from "@/constants/constants"
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs"
+import { UserPlus } from "lucide-react"
 
 import MenuNav from "@/components/menu-nav"
+
 import { Button } from "./ui/button"
 
 const generateFriendCode = async () => {
-  const friendCode = Math.floor(100000 + Math.random() * 900000);
+  const friendCode = Math.floor(100000 + Math.random() * 900000)
 
   const { error, data } = await supabaseClient
-    .from('users')
+    .from("users")
     .select()
-    .eq('friend_code', friendCode)
+    .eq("friend_code", friendCode)
 
   if (error) {
-    console.error("Error when querying existing friendCode", error);
-    return;
+    console.error("Error when querying existing friendCode", error)
+    return
   }
 
   if (data.length) {
     console.debug(friendCode, "friendCode already exists")
     // friendCodeExists
-    return generateFriendCode();
+    return generateFriendCode()
   }
 
-  return friendCode;
+  return friendCode
 }
 
 export function SiteHeader() {
-  const { user, isSignedIn } = useUser();
+  const { user, isSignedIn } = useUser()
 
   useEffect(() => {
     const upsertUser = async () => {
       const { data, error } = await supabaseClient
-        .from('users')
+        .from("users")
         .select()
-        .eq('id', user?.id)
+        .eq("id", user?.id)
 
       // User does not already exist
       if (!data?.length) {
         console.debug("User does not already exist.")
 
-        const friendCode = await generateFriendCode();
+        const friendCode = await generateFriendCode()
 
         console.debug("Friend Code:", friendCode)
 
-        const { error } = await supabaseClient
-          .from('users')
-          .insert({
-            id: user?.id,
-            full_name: user?.fullName,
-            image_url: user?.imageUrl,
-            last_login: user?.createdAt,
-            email: user?.emailAddresses[0].emailAddress,
-            friend_code: friendCode
-          });
+        const { error } = await supabaseClient.from("users").insert({
+          id: user?.id,
+          full_name: user?.fullName,
+          image_url: user?.imageUrl,
+          last_login: user?.createdAt,
+          email: user?.emailAddresses[0].emailAddress,
+          friend_code: friendCode,
+        })
 
         if (error !== null) {
-          console.error("Error when creating user:", error?.message);
+          console.error("Error when creating user:", error?.message)
         }
       }
     }
 
     if (isSignedIn) {
-      upsertUser();
+      upsertUser()
     }
   }, [isSignedIn])
 

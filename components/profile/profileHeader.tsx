@@ -6,7 +6,7 @@ import AddFriends from "./addFriends"
 
 type Props = {
   user: any
-  numPosts: number,
+  numPosts: number
   friendCode: string
 }
 
