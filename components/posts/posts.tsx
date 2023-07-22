@@ -1,11 +1,12 @@
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
-
 import Post from "./post"
+
 
 type Props = {
   posts: any
-  setPosts(arg0: any): void
+  setPosts(arg0: any): void,
+  deletePost(postId: any): void
 }
 
 type DataItem = {
@@ -15,7 +16,7 @@ type DataItem = {
   profileUrl: string
 }
 
-export default function Posts({ posts, setPosts }: Props) {
+export default function Posts({ posts, setPosts, deletePost }: Props) {
   useEffect(() => {
     const fetchPosts = async () => {
       let fetchedPosts = []
@@ -33,10 +34,13 @@ export default function Posts({ posts, setPosts }: Props) {
       for (let index in data as DataItem[]) {
         fetchedPosts.push(
           <Post
+            deletePost={deletePost}
+            postId={data[index].id}
             name={data[index].name}
             imageUrl={data[index].href}
             createdAt={data[index].created_at}
             profileImgUrl={data[index].profileUrl}
+            userId={data[index].userId}
             key={index}
           />
         )
