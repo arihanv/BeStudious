@@ -45,32 +45,32 @@ export default function Upload({ posts, setPosts }) {
       return
     }
 
-    const { data: firstData, error: firstError } = await supabaseClient
-      .from("images")
-      .select()
-      .order("created_at", { ascending: false })
-      .eq("userId", user.id)
-      .limit(2)
+    // const { data: firstData, error: firstError } = await supabaseClient
+    //   .from("images")
+    //   .select()
+    //   .order("created_at", { ascending: false })
+    //   .eq("userId", user.id)
+    //   .limit(2)
 
-    if (error) {
-      console.error("Error...", error)
-    }
+    // if (error) {
+    //   console.error("Error...", error)
+    // }
 
-    const { data: secondData, error: secondError } = await supabaseClient
-      .from("daily_prompt")
-      .select()
-      .order("created_at", { ascending: false })
-      .limit(1)
+    // const { data: secondData, error: secondError } = await supabaseClient
+    //   .from("daily_prompt")
+    //   .select()
+    //   .order("created_at", { ascending: false })
+    //   .limit(1)
 
-    const createdAtTime = firstData[1].created_at
-    const secondTime = secondData[0].created_at
+    // const createdAtTime = firstData[1].created_at
+    // const secondTime = secondData[0].created_at
 
-    const postedTime = moment(createdAtTime, moment.ISO_8601, true)
-    const secondPostedTime = moment(secondTime, moment.ISO_8601, true)
-    const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"))
-    console.log(postedTime)
-    console.log(secondPostedTime)
-    console.log(hourDiff)
+    // const postedTime = moment(createdAtTime, moment.ISO_8601, true)
+    // const secondPostedTime = moment(secondTime, moment.ISO_8601, true)
+    // const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"))
+    // console.log(postedTime)
+    // console.log(secondPostedTime)
+    // console.log(hourDiff)
 
     let newPost = (
       <Post

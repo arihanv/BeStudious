@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import supabaseClient from "@/constants/constants"
 import { useUser } from "@clerk/nextjs"
 import { Flag, MoreVertical } from "lucide-react"
@@ -55,6 +55,13 @@ export default function Post({
     }
   }
 
+  const [postReactions, setPostReactions] = useState(
+    reactions || {
+      thumbsup: [],
+      fire: [],
+      nerd: [],
+    }
+  )
   const { user } = useUser()
 
   const currentTime = moment()
@@ -126,46 +133,50 @@ export default function Post({
         }}
         className="relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900"
       >
-        <Reactions imgUrl={imageUrl} />
-        {reactions && (
+        <Reactions
+          postId={postId}
+          postReactions={postReactions}
+          setPostReactions={setPostReactions}
+        />
+        {postReactions && (
           <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-sm">
             <div className="flex flex-col gap-1">
-              {reactions.thumbsup && reactions.thumbsup.length > 0 && (
+              {postReactions.thumbsup && postReactions.thumbsup.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
                     <TooltipTrigger className="!cursor-default">
-                      <div>👍 x {reactions.thumbsup.length}</div>
+                      <div>👍 x {postReactions.thumbsup.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
-                      {reactions.thumbsup.map((name: string) => (
+                      {postReactions.thumbsup.map((name: string) => (
                         <p>{name}</p>
                       ))}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               )}
-              {reactions.fire && reactions.fire.length > 0 && (
+              {postReactions.fire && postReactions.fire.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
                     <TooltipTrigger className="!cursor-default">
-                      <div>🔥 x {reactions.fire.length}</div>
+                      <div>🔥 x {postReactions.fire.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
-                      {reactions.fire.map((name: string) => (
+                      {postReactions.fire.map((name: string) => (
                         <p>{name}</p>
                       ))}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               )}
-              {reactions.nerd && reactions.nerd.length > 0 && (
+              {postReactions.nerd && postReactions.nerd.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
                     <TooltipTrigger className="!cursor-default">
-                      <div>🤓 x {reactions.nerd.length}</div>
+                      <div>🤓 x {postReactions.nerd.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
-                      {reactions.nerd.map((name: string) => (
+                      {postReactions.nerd.map((name: string) => (
                         <p>{name}</p>
                       ))}
                     </TooltipContent>
