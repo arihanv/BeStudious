@@ -1,14 +1,12 @@
 import React from "react"
+import supabaseClient from "@/constants/constants"
 
 import Space from "./space"
-import supabaseClient from "@/constants/constants"
 
 type Props = {}
 
 export default async function SpaceGrid({}: Props) {
-  const { data, error } = await supabaseClient
-    .from("spaces")
-    .select()
+  const { data, error } = await supabaseClient.from("spaces").select()
 
   for (let space of data) {
     console.log(space)

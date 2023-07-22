@@ -1,5 +1,6 @@
 import React from "react"
 import supabaseClient from "@/constants/constants.jsx"
+
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import AddFriends from "./addFriends"
@@ -25,7 +26,11 @@ const fetchFriends = async (user: any) => {
   }
 }
 
-export default async function ProfileHeader({ user, numPosts, friendCode }: Props) {
+export default async function ProfileHeader({
+  user,
+  numPosts,
+  friendCode,
+}: Props) {
   const friends = await fetchFriends(user)
   console.log(friends)
   return (
@@ -42,7 +47,7 @@ export default async function ProfileHeader({ user, numPosts, friendCode }: Prop
           <div className="flex flex-wrap">
             <div className="flex flex-wrap items-center gap-4 font-medium">
               <div className="pl-0.5">{numPosts} Posts</div>
-              <NumFriends friends={friends}/>
+              <NumFriends friends={friends} />
             </div>
           </div>
         </div>
