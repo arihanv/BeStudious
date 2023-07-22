@@ -44,7 +44,7 @@ export default function Upload({ posts, setPosts }) {
 
     const { data: newData, error: newDataError } = await supabaseClient
       .from("users")
-      .update({"points": countData[0].points + 3})
+      .update({ points: countData[0].points + 3 })
       .eq("id", user.id)
       .select()
 
