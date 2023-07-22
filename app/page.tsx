@@ -1,4 +1,6 @@
 import Link from "next/link"
+
+import { Github, Medal, Users, Puzzle } from "lucide-react"
 import { Contact, GraduationCap, Medal, Rss, Users } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
