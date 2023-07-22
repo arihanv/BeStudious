@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react"
 import supabaseClient from "@/constants/constants"
 import { currentUser } from "@clerk/nextjs"
