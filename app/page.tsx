@@ -37,7 +37,10 @@ export default function IndexPage() {
               <GraduationCap width={15} /> Trivia
             </div>
           </Link>
-          <Link href="/leaderboard" className={twMerge(buttonVariants(), "w-full")}>
+          <Link
+            href="/leaderboard"
+            className={twMerge(buttonVariants(), "w-full")}
+          >
             <div className="flex items-center gap-1.5">
               <Medal width={15} /> Leaderboard
             </div>
