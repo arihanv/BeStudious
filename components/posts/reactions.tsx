@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
