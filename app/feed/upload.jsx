@@ -50,6 +50,7 @@ export default function Upload({ posts, setPosts }) {
         imageUrl={data[0].href}
         createdAt={data[0].created_at}
         profileImgUrl={data[0].profileUrl}
+        imgUrl={imageUrl}
         key={posts.length}
       />
     )

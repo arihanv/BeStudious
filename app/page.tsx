@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, Medal, Users } from "lucide-react"
+import { Github, Medal, Users, Puzzle } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
@@ -19,18 +19,25 @@ export default function IndexPage() {
           <Medal />
         </Link>
         <Link
-          href="https://github.com/arihanv/BeStudious"
-          rel="noreferrer"
-          className={buttonVariants({ variant: "outline" })}
-        >
-          <Github />
-        </Link>
-        <Link
           href="/spaces"
           rel="noreferrer"
           className={buttonVariants({ variant: "outline" })}
         >
           <Users />
+        </Link>
+        <Link
+          href="/trivia"
+          rel="noreferrer"
+          className={buttonVariants({ variant: "outline" })}
+        >
+          <Puzzle />
+        </Link>
+        <Link
+          href="https://github.com/arihanv/BeStudious"
+          rel="noreferrer"
+          className={buttonVariants({ variant: "outline" })}
+        >
+          <Github />
         </Link>
       </div>
     </section>
