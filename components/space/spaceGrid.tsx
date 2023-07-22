@@ -5,11 +5,12 @@ import React, { useState, useEffect } from "react"
 import Space from "./space"
 import supabaseClient from "@/constants/constants"
 
-type Props = {}
+type Props = {
+  spaces: Array<any>,
+  setSpaces(arg0: any): void
+}
 
-export default function SpaceGrid({ }: Props) {
-  const [spaces, setSpaces] = useState([]);
-
+export default function SpaceGrid({ spaces, setSpaces }: Props) {
   useEffect(() => {
     const getSpaces = async () => {
       let tempSpaces = [];

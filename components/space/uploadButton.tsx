@@ -15,10 +15,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import Space from "./space"
 
-type Props = {};
+type Props = { }
 
-export default function UploadButton({}: Props) {
+export default function UploadButton({ }: Props) {
   const { user, isSignedIn } = useUser();
   const [spaceName, setSpaceName] = useState<string>("");
   const [spaceLocation, setSpaceLocation] = useState<string>("");
@@ -39,6 +40,7 @@ export default function UploadButton({}: Props) {
     }
 
     console.log("Created space.")
+    window.location.reload();
   };
 
   return (
