@@ -11,7 +11,11 @@ type Props = {
   num: number
 }
 
-export default function TriviaQuestion({ question, setUserAnswers, num }: Props) {
+export default function TriviaQuestion({
+  question,
+  setUserAnswers,
+  num,
+}: Props) {
   const [value, setValue] = React.useState("")
 
   const handleOptionChange = (value: string) => {
@@ -22,7 +26,6 @@ export default function TriviaQuestion({ question, setUserAnswers, num }: Props)
     })
     setValue(value)
   }
-
 
   return (
     <div className="flex flex-col gap-2 border-b border-gray-800 pb-5">
