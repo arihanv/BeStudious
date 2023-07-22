@@ -57,9 +57,10 @@ export default function AddFriends({ friendCode }: Props) {
       return
     }
 
-    const oldFriends = data[0].friends.map(user => user.id)
+    const oldFriends = data[0].friends;
+    const oldFriendIds = oldFriends.map(user => user.id);
 
-    if (oldFriends.includes(friendData.id)) {
+    if (oldFriendIds.includes(friendData.id)) {
       setServerResponse(`You are already friends with ${friendData.full_name}!`)
       return
     }
