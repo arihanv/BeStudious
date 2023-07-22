@@ -15,7 +15,7 @@ type Props = {
   imgUrl: string
 }
 
-export default function Reactions({imgUrl}: Props) {
+export default function Reactions({}: Props) {
   const { user } = useUser()
 
   const handleThumbsUp = async (e) => {
@@ -34,7 +34,7 @@ export default function Reactions({imgUrl}: Props) {
       if (insertError) {
         console.error("Error occured", insertError);
       }
-  }
+  // }
 
   return (
     <div className="absolute bottom-0 right-0 rounded-tl-xl bg-black p-0">
