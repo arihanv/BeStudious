@@ -12,18 +12,18 @@ export default function Upload({ posts, setPosts }) {
   const { user } = useUser()
   const [file, setFile] = useState([])
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!file) {
-      return;
+      return
     }
-    const form = new FormData();
+    const form = new FormData()
     form.append("file", file)
     const response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
       method: "POST",
       body: form,
     })
-    const json = await response.json();
-    const imageUrl = json.attachments[0].url;
+    const json = await response.json()
+    const imageUrl = json.attachments[0].url
 
     const { data: fetchData, error: fetchError } = await supabaseClient
       .from("images")
@@ -33,7 +33,7 @@ export default function Upload({ posts, setPosts }) {
           href: imageUrl,
           userId: user.id,
           profileUrl: user.imageUrl,
-         },
+        },
       ])
       .select()
 
@@ -41,7 +41,7 @@ export default function Upload({ posts, setPosts }) {
       .from("users")
       .select("points")
       .eq("id", user.id)
-      
+
     const { data: newData, error: newDataError } = await supabaseClient
       .from("users")
       .update({"points": countData[0].points + 3})
@@ -61,7 +61,7 @@ export default function Upload({ posts, setPosts }) {
         key={fetchData.length}
       />
     )
-    setPosts([newPost, ...posts]);
+    setPosts([newPost, ...posts])
   }
 
   const handleFiles = (e) => {

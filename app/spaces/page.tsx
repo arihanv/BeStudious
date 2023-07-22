@@ -1,11 +1,12 @@
 "use client"
 
-import SpaceGrid from "@/components/space/spaceGrid"
-import UploadButton from "@/components/space/uploadButton"
 import { useState } from "react"
 
+import SpaceGrid from "@/components/space/spaceGrid"
+import UploadButton from "@/components/space/uploadButton"
+
 export default function IndexPage() {
-  const [spaces, setSpaces] = useState([]);
+  const [spaces, setSpaces] = useState([])
 
   return (
     <section className="container flex flex-col items-center justify-center gap-6 pb-8 pt-6 md:py-10">

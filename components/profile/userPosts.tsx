@@ -18,6 +18,7 @@ export default function UserPosts({ posts }: Props) {
               profileImgUrl={post.profileUrl}
               userId={post.userId}
               key={index}
+              reactions={post}
             />
           )
         })}

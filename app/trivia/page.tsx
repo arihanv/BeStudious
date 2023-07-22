@@ -1,24 +1,38 @@
-import supabaseClient from "@/constants/constants.jsx"
-import moment from "moment"
+"use client"
 
+import { useEffect, useState } from "react"
+import supabaseClient from "@/constants/constants.jsx"
+
+import { Button } from "@/components/ui/button"
 import TriviaQuestion from "@/components/trivia/triviaQuestion"
 
-const fetchQuestion = async () => {
-  const { data, error } = await supabaseClient
-    .from("trivia_questions")
-    .select()
-    .limit(1)
-    .order("created_at", { ascending: false })
+export default function Trivia() {
+  // const questions = await fetchQuestion()
+  const [questions, setQuestions] = useState([])
+  const [userAnswers, setUserAnswers] = useState([null, null, null, null])
 
-  if (error || data === null || data.length === 0) {
-    return null
-  } else {
-    return data[0].questions
+  useEffect(() => {
+    const fetchQuestion = async () => {
+      const { data, error } = await supabaseClient
+        .from("trivia_questions")
+        .select()
+        .limit(1)
+        .order("created_at", { ascending: false })
+
+      if (error || data === null || data.length === 0) {
+        console.error("Error when fetching question", error)
+        return null
+      } else {
+        setQuestions(data[0].questions)
+        return data[0].questions
+      }
+    }
+    fetchQuestion()
+  }, [])
+
+  const handleSubmit = () => {
+    console.log(userAnswers)
   }
-}
-
-export default async function Trivia() {
-  const questions = await fetchQuestion()
 
   return (
     <section className="container flex flex-col items-center justify-center gap-6 pb-8 pt-6 md:py-10">
@@ -28,9 +42,19 @@ export default async function Trivia() {
         </div>
         {questions !== null &&
           questions.map((question: any, index: number) => {
-            return <TriviaQuestion question={question} key={index} />
+            return (
+              <TriviaQuestion
+                setUserAnswers={setUserAnswers}
+                question={question}
+                num={index}
+                key={index}
+              />
+            )
           })}
       </div>
+      <Button size={"sm"} onClick={() => handleSubmit()}>
+        Submit
+      </Button>
     </section>
   )
 }

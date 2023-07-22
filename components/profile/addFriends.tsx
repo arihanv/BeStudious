@@ -147,4 +147,3 @@ export default function AddFriends({ friendCode }: Props) {
     </div>
   )
 }
-
