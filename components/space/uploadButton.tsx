@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState } from "react";
-import supabaseClient from "@/constants/constants";
-import { useUser } from "@clerk/nextjs";
-import { Users } from "lucide-react";
+import React, { useState } from "react"
+import supabaseClient from "@/constants/constants"
+import { useUser } from "@clerk/nextjs"
+import { Users } from "lucide-react"
+
 import {
   Dialog,
   DialogContent,
@@ -12,36 +13,35 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+} from "@/components/ui/dialog"
+
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 import Space from "./space"
 
-type Props = { }
+type Props = {}
 
-export default function UploadButton({ }: Props) {
-  const { user, isSignedIn } = useUser();
-  const [spaceName, setSpaceName] = useState<string>("");
-  const [spaceLocation, setSpaceLocation] = useState<string>("");
+export default function UploadButton({}: Props) {
+  const { user, isSignedIn } = useUser()
+  const [spaceName, setSpaceName] = useState<string>("")
+  const [spaceLocation, setSpaceLocation] = useState<string>("")
 
   const createSpace = async () => {
-    if (!isSignedIn) return;
+    if (!isSignedIn) return
 
-    const { data, error } = await supabaseClient
-      .from('spaces')
-      .insert({
-        location: spaceLocation,
-        name: spaceName,
-        users: [user?.fullName]
-      });
-    
+    const { data, error } = await supabaseClient.from("spaces").insert({
+      location: spaceLocation,
+      name: spaceName,
+      users: [user?.fullName],
+    })
+
     if (error) {
-      console.error("Error creating space:", error);
+      console.error("Error creating space:", error)
     }
 
     console.log("Created space.")
-    window.location.reload();
-  };
+    window.location.reload()
+  }
 
   return (
     <div className="fixed bottom-0 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
@@ -77,12 +77,18 @@ export default function UploadButton({ }: Props) {
             </DialogDescription>
             <DialogFooter className="flex w-full flex-1 items-center justify-center pt-2">
               <div className="m-auto">
-                <Button onClick={() => {createSpace()}}>Make Space</Button>
+                <Button
+                  onClick={() => {
+                    createSpace()
+                  }}
+                >
+                  Make Space
+                </Button>
               </div>
             </DialogFooter>
           </DialogHeader>
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }

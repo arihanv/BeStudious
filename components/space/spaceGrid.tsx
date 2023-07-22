@@ -1,35 +1,40 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import supabaseClient from "@/constants/constants"
 
 import Space from "./space"
 
 type Props = {
-  spaces: Array<any>,
+  spaces: Array<any>
   setSpaces(arg0: any): void
 }
 
 export default function SpaceGrid({ spaces, setSpaces }: Props) {
   useEffect(() => {
     const getSpaces = async () => {
-      let tempSpaces = [];
+      let tempSpaces = []
 
-      const { data, error } = await supabaseClient
-        .from("spaces")
-        .select()
+      const { data, error } = await supabaseClient.from("spaces").select()
 
       if (!error) {
         for (let space of data) {
-          tempSpaces.push(<Space spaceId={space.id} users={space.users} spaceName={space.name} spaceLocation={space.location} />)
+          tempSpaces.push(
+            <Space
+              spaceId={space.id}
+              users={space.users}
+              spaceName={space.name}
+              spaceLocation={space.location}
+            />
+          )
         }
       } else {
         console.error(`Error when fetching spaces: ${error}`)
       }
-      setSpaces(tempSpaces);
+      setSpaces(tempSpaces)
     }
 
-    getSpaces();
+    getSpaces()
   }, [])
 
   return (

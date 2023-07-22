@@ -1,31 +1,32 @@
-"use client"
-
 import React from "react"
 
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import { Badge } from "../ui/badge"
-import { Button } from "../ui/button"
 
 type Props = {
   question: any
+  setUserAnswers: any
+  num: number
 }
 
-export default function TriviaQuestion({ question }: Props) {
+export default function TriviaQuestion({
+  question,
+  setUserAnswers,
+  num,
+}: Props) {
   const [value, setValue] = React.useState("")
 
   const handleOptionChange = (value: string) => {
+    setUserAnswers((prev: any) => {
+      const newAnswers = [...prev]
+      newAnswers[num] = value
+      return newAnswers
+    })
     setValue(value)
   }
 
-  const handleSubmit = () => {
-    if (value === question["correctAnswer"]) {
-      alert("Correct!")
-    } else {
-      alert("Incorrect :(")
-    }
-  }
   return (
     <div className="flex flex-col gap-2 border-b border-gray-800 pb-5">
       <div>
@@ -40,11 +41,6 @@ export default function TriviaQuestion({ question }: Props) {
           </div>
         ))}
       </RadioGroup>
-      <div className="mt-2 flex justify-center">
-        <Button size={"sm"} onClick={() => handleSubmit()}>
-          Submit
-        </Button>
-      </div>
     </div>
   )
 }
