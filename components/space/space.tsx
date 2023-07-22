@@ -44,7 +44,7 @@ export default function Space({ spaceId, spaceName, spaceLocation, users }: Prop
     <div className="flex w-full max-w-[400px] flex-col gap-1.5 rounded-lg border border-gray-800 bg-gray-900 p-2">
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold">{spaceName}</h1>
-        <p className="text-xs text-gray-400">{spaceLocation}</p>
+        <p className="text-xs text-gray-400">{inSpace ? spaceLocation : ""}</p>
       </div>
       <hr></hr>
       <div className="pl-5 text-sm">
