@@ -127,10 +127,10 @@ export default function Post({
               {reactions.thumbsup && reactions.thumbsup.length > 0 && (
                 <div>👍 x {reactions.thumbsup.length}</div>
               )}
-              {reactions.thumbsdown && reactions.thumbsdown.length > 0 && (
+              {reactions.fire && reactions.fire.length > 0 && (
                 <div>🔥 x {reactions.fire.length}</div>
               )}
-              {reactions.fire && reactions.fire.length > 0 && (
+              {reactions.nerd && reactions.nerd.length > 0 && (
                 <div>🤓 x {reactions.nerd.length}</div>
               )}
             </div>
