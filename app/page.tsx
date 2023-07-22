@@ -1,10 +1,11 @@
 import Link from "next/link"
-import { Github, Medal, Users } from "lucide-react"
+import { Contact, GraduationCap, Medal, Rss, Users } from "lucide-react"
+import { twMerge } from "tailwind-merge"
 
+import { buttonVariants } from "@/components/ui/button"
 import Post from "@/components/posts/post"
 
 export default function IndexPage() {
-  //get current time
   const date = new Date().toISOString()
 
   return (
@@ -18,12 +19,39 @@ export default function IndexPage() {
         />
         <div className="dark-shadow" />
       </div>
-      <div className="flex h-full w-full max-w-[480px] flex-col items-center justify-center gap-2 pb-20 tracking-tight shadow-xl shadow-black">
+      <div className="flex h-full w-full max-w-[480px] flex-col items-center justify-center gap-3 pb-20 tracking-tight shadow-xl shadow-black">
         <div className="w-full self-start pt-5 text-5xl font-bold lg:text-7xl ">
           BeStudious.
         </div>
         <div className="w-full self-start text-base lg:text-xl">
           Learn, Share, and Grow with an online community of students.
+        </div>
+        <div className="grid w-full grid-cols-3 gap-2">
+          <Link href="/feed" className={twMerge(buttonVariants(), "w-full")}>
+            <div className="flex items-center gap-1.5">
+              <Rss width={15} /> Feed
+            </div>
+          </Link>
+          <Link href="/trivia" className={twMerge(buttonVariants(), "w-full")}>
+            <div className="flex items-center gap-1.5">
+              <GraduationCap width={15} /> Trivia
+            </div>
+          </Link>
+          <Link href="/leaderboard" className={twMerge(buttonVariants(), "w-full")}>
+            <div className="flex items-center gap-1.5">
+              <Medal width={15} /> Leaderboard
+            </div>
+          </Link>
+          <Link href="/spaces" className={twMerge(buttonVariants(), "w-full")}>
+            <div className="flex items-center gap-1.5">
+              <Users width={15} /> Spaces
+            </div>
+          </Link>
+          <Link href="/profile" className={twMerge(buttonVariants(), "w-full")}>
+            <div className="flex items-center gap-1.5">
+              <Contact width={15} /> Profile
+            </div>
+          </Link>
         </div>
       </div>
     </section>
