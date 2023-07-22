@@ -57,7 +57,7 @@ export default function AddFriends({ friendCode }: Props) {
       return
     }
 
-    const oldFriends = data[0].friends
+    const oldFriends = data[0].friends.map(user => user.id)
 
     if (oldFriends.includes(friendData.id)) {
       setServerResponse(`You are already friends with ${friendData.full_name}!`)
@@ -66,7 +66,7 @@ export default function AddFriends({ friendCode }: Props) {
 
     ;({ data, error } = await supabaseClient
       .from("users")
-      .update({ friends: [...oldFriends, friendData?.id] })
+      .update({ friends: [...oldFriends, {id: friendData?.id, full_name: friendData.full_name}] })
       .eq("id", user?.id))
 
     if (error) {
