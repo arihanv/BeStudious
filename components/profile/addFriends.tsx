@@ -1,19 +1,88 @@
 "use client"
 
-import React from "react"
-import { UserPlus } from "lucide-react"
+import React, { useState } from "react";
+import { UserPlus } from "lucide-react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { useUser } from "@clerk/nextjs";
 
-import { Badge } from "../ui/badge"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
+import supabaseClient from "@/constants/constants";
 
 type Props = {
-  friendCode: string
-}
+  friendCode: string;
+};
 
 export default function AddFriends({ friendCode }: Props) {
+  const [newFriendCode, setNewFriendCode] = useState("");
+  const [serverResponse, setServerResponse] = useState("");
+  const { user } = useUser()
+
+  const addFriend = async () => {
+    setServerResponse("");
+
+    let { data, error } = await supabaseClient
+      .from('users')
+      .select()
+      .eq('friend_code', newFriendCode);
+
+    let friendData = data[0];
+
+    if (error) {
+      console.error(`Error fetching friend: ${error}`)
+      setServerResponse(`Error fetching friend: ${error}`)
+      return;
+    }
+
+    if (!friendData) {
+      setServerResponse("Invalid friend code.");
+      return;
+    }
+
+    if (friendData.id == user?.id) {
+      setServerResponse("You cannot add yourself!");
+      return;
+    }
+
+    ({ data, error } = await supabaseClient
+      .from('users')
+      .select()
+      .eq('id', user?.id));
+
+      if (error) {
+        console.error(`Error fetching current friends: ${error}`)
+        setServerResponse(`Error fetching current friends: ${error}`)
+        return;
+      }
+
+    const oldFriends = data[0].friends;
+
+    if (oldFriends.includes(friendData.id)) {
+      setServerResponse(`You are already friends with ${friendData.full_name}!`);
+      return;
+    }
+
+    ({ data, error } = await supabaseClient
+      .from('users')
+      .update({friends: [...oldFriends, friendData?.id]})
+      .eq('id', user?.id));
+
+    if (error) {
+      console.error(`Error adding friend: ${error}`)
+      setServerResponse(`Error adding friend: ${error}`)
+      return;
+    }
+
+    setServerResponse(`Added ${friendData.full_name}.`);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/[^0-9]/g, "").slice(0, 6);
+    setNewFriendCode(input);
+  };
+
   return (
     <div className="flex flex-1 justify-center rounded-xl py-2">
       <Tabs defaultValue="friendCode" className="w-full">
@@ -39,14 +108,20 @@ export default function AddFriends({ friendCode }: Props) {
         </TabsContent>
         <TabsContent value="addFriend">
           <div className="mt-3 flex h-[50px] items-center justify-center gap-2 rounded-lg bg-slate-900 px-1 py-2">
-            <Input placeholder="Enter Friend Code" className="flex-1" />
-            <Button size={"sm"} className="flex min-w-fit gap-2">
+            <Input
+              placeholder="Enter Friend Code"
+              className="flex-1"
+              value={newFriendCode}
+              onChange={handleInputChange}
+            />
+            <Button size={"sm"} className="flex min-w-fit gap-2" onClick={() => {addFriend()}}>
               <UserPlus size={18} />
               Add Friend
             </Button>
           </div>
+          {serverResponse}
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

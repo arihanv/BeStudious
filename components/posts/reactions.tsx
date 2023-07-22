@@ -22,7 +22,7 @@ async function getEmojis(postId: Number) {
     .from("images")
     .select() // Specify the columns you want to retrieve
     .eq("id", postId)
-  console.log("data,", data)
+  
   return data[0]
 }
 
@@ -34,7 +34,6 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
     const fetchEmojis = async () => {
       const data = await getEmojis(postId)
       setEmojiData(data)
-      console.log(data)
     }
     fetchEmojis()
   }, [])
