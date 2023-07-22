@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
-import { Loader2, Smile } from "lucide-react"
+import { Smile } from "lucide-react"
 
 import {
   Menubar,
