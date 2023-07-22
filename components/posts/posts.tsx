@@ -41,6 +41,7 @@ export default function Posts({ posts, setPosts }: Props) {
             createdAt={data[index].created_at}
             profileImgUrl={data[index].profileUrl}
             userId={data[index].userId}
+            reactions={data[index]}
             key={index}
           />
         )

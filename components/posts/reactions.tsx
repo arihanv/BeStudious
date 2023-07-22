@@ -43,11 +43,16 @@ export default function Reactions({ imgUrl }: Props) {
     fetchEmojis()
   }, [])
 
-  const handleEmojis = async (emoji) => {
+
+  const handleEmojis = async (emoji: string) => {
     const { data: fetchData, error: fetchError } = await supabaseClient
       .from("images")
       .select(emoji)
       .eq("href", imgUrl)
+    if(fetchData == null) {
+      console.error("Error occured...", fetchError)
+      return
+    }
     if (fetchData[0][emoji] === null) {
       const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
@@ -59,7 +64,7 @@ export default function Reactions({ imgUrl }: Props) {
       }
     } else if (!fetchData[0][emoji].includes(user.fullName)) {
       let array = [...fetchData[0][emoji]]
-      array.push(user.fullName)
+      array.push(user?.fullName)
       const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
         .update([{ [emoji]: array }])
