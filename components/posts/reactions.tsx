@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
-import { Smile } from "lucide-react"
+import { Loader2, Smile } from "lucide-react"
 
 import {
   Menubar,
@@ -26,6 +26,7 @@ async function getEmojis(imgUrl: string) {
     .from("images")
     .select() // Specify the columns you want to retrieve
     .eq("href", imgUrl)
+  console.log("data,", data)
   return data[0]
 }
 
@@ -50,16 +51,16 @@ export default function Reactions({ imgUrl }: Props) {
     if (fetchData[0][emoji] === null) {
       const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
-        .update([{ [emoji]: [ user.fullName ] }])
+        .update([{ [emoji]: [user.fullName] }])
         .eq("href", imgUrl)
         .select()
       if (insertError) {
         console.error("Error occured...", insertError)
       }
-    } else if (!(fetchData[0][emoji]).includes(user.fullName)) {
-      let array = [...fetchData[0][emoji]];
-      array.push(user.fullName);
-      const { data: insertData, error: insertError } = await supabaseClient 
+    } else if (!fetchData[0][emoji].includes(user.fullName)) {
+      let array = [...fetchData[0][emoji]]
+      array.push(user.fullName)
+      const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
         .update([{ [emoji]: array }])
         .eq("href", imgUrl)
@@ -68,9 +69,9 @@ export default function Reactions({ imgUrl }: Props) {
         console.error("Error occured...", insertError)
       }
     } else {
-      let array = [...fetchData[0][emoji]];
-      const i = array.indexOf(user.fullName);
-      array.splice(i, 1);
+      let array = [...fetchData[0][emoji]]
+      const i = array.indexOf(user.fullName)
+      array.splice(i, 1)
       if (array.length === 0) {
         array = null
       }
@@ -85,6 +86,14 @@ export default function Reactions({ imgUrl }: Props) {
     }
   }
 
+  if (emojiData === undefined || emojiData === null) {
+    return (
+      <div className="absolute bottom-0 right-0 rounded-tl-xl bg-black p-2">
+        <Smile />
+      </div>
+    )
+  }
+
   return (
     <div className="absolute bottom-0 right-0 rounded-tl-xl bg-black p-0">
       <Menubar loop={true}>
@@ -92,7 +101,7 @@ export default function Reactions({ imgUrl }: Props) {
           <MenubarTrigger className="px-1">
             <Smile />
           </MenubarTrigger>
-          <MenubarContent side="top" className="!min-w-0 flex flex-col">
+          <MenubarContent side="top" className="flex !min-w-0 flex-col">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -100,8 +109,9 @@ export default function Reactions({ imgUrl }: Props) {
                     👍
                   </MenubarItem>
                 </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>{emojiData.thumbsup}</p>
+                <TooltipContent className="text-sm" side="right">
+                  {emojiData.thumbsup &&
+                    emojiData.thumbsup.map((name: string) => <p>{name}</p>)}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -113,7 +123,8 @@ export default function Reactions({ imgUrl }: Props) {
                   </MenubarItem>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>{emojiData.fire}</p>
+                  {emojiData.fire &&
+                    emojiData.fire.map((name: string) => <p>{name}</p>)}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -125,7 +136,8 @@ export default function Reactions({ imgUrl }: Props) {
                   </MenubarItem>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>{emojiData.nerd}</p>
+                  {emojiData.nerd &&
+                    emojiData.nerd.map((name: string) => <p>{name}</p>)}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
