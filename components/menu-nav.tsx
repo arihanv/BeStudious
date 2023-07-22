@@ -82,12 +82,6 @@ export default function MenuNav({}: Props) {
             </Link>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>
-            {" "}
-            <div className="flex items-center gap-1.5">
-              <Settings width={15} /> Settings
-            </div>
-          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

@@ -1,5 +1,3 @@
-"use client"
-
 import Post from "../posts/post"
 
 type Props = {

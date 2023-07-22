@@ -30,7 +30,7 @@ export default function Posts({ posts, setPosts, deletePost }: Props) {
       if (error || data === null) {
         console.error("Error fetching posts:", error.message)
       }
-
+      if (data === null) return
       for (let index in data as DataItem[]) {
         fetchedPosts.push(
           <Post
