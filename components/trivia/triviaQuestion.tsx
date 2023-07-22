@@ -5,28 +5,45 @@ import React from "react"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
+import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 
-type Props = {}
+type Props = {
+  question: any
+}
 
-export default function TriviaQuestion({}: Props) {
+export default function TriviaQuestion({ question }: Props) {
+  const [value, setValue] = React.useState("")
+
+  const handleOptionChange = (value: string) => {
+    setValue(value)
+  }
+
+  const handleSubmit = () => {
+    if (value === question["correctAnswer"]) {
+      alert("Correct!")
+    } else {
+      alert("Incorrect :(")
+    }
+  }
   return (
-    <div className="flex flex-col gap-2">
-      <div className="text-xl font-medium">
-        Q: What is the capital of the United States?
+    <div className="flex flex-col gap-2 border-b border-gray-800 pb-5">
+      <div>
+        <Badge>{question["topic"]}</Badge>
       </div>
-      <RadioGroup defaultValue="option-one">
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-one" id="option-one" />
-          <Label htmlFor="option-one">Option One</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-two" id="option-two" />
-          <Label htmlFor="option-two">Option Two</Label>
-        </div>
+      <div className="text-xl font-medium">{question["question"]}</div>
+      <RadioGroup onValueChange={(value: string) => handleOptionChange(value)}>
+        {Object.keys(question["choices"]).map((key) => (
+          <div className="flex items-center space-x-2" key={key}>
+            <RadioGroupItem value={key} id={key} />
+            <Label htmlFor={key}>{question["choices"][key]}</Label>
+          </div>
+        ))}
       </RadioGroup>
       <div className="mt-2 flex justify-center">
-        <Button size={"sm"}>Submit</Button>
+        <Button size={"sm"} onClick={() => handleSubmit()}>
+          Submit
+        </Button>
       </div>
     </div>
   )
