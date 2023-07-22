@@ -62,7 +62,7 @@ export function SiteHeader() {
           last_login: user?.createdAt,
           email: user?.emailAddresses[0].emailAddress,
           friend_code: friendCode,
-          friends: []
+          friends: [],
         })
 
         if (error !== null) {
