@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/menubar"
 
 type Props = {
-  postId: Number,
-  postReactions: Array<any>,
+  postId: Number
+  postReactions: Array<any>
   setPostReactions(reactions: any): void
 }
 
@@ -22,11 +22,15 @@ async function getEmojis(postId: Number) {
     .from("images")
     .select() // Specify the columns you want to retrieve
     .eq("id", postId)
-  
+
   return data[0]
 }
 
-export default function Reactions({ postId, postReactions, setPostReactions }: Props) {
+export default function Reactions({
+  postId,
+  postReactions,
+  setPostReactions,
+}: Props) {
   const { user } = useUser()
   const [emojiData, setEmojiData] = React.useState<any>([])
 
@@ -66,18 +70,18 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
         .select()
       if (insertError) {
         console.error("Error occured...", insertError)
-        return;
+        return
       }
 
       let tempReactions = { ...postReactions }
-      tempReactions[emoji].push(user?.fullName);
-      setPostReactions(tempReactions);
+      tempReactions[emoji].push(user?.fullName)
+      setPostReactions(tempReactions)
     } else {
       let array = [...fetchData[0][emoji]]
       const i = array.indexOf(user?.fullName)
       array.splice(i, 1)
       if (array.length === 0) {
-        array = [];
+        array = []
       }
       const { data: insertData, error: insertError } = await supabaseClient
         .from("images")
@@ -89,8 +93,10 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
       }
 
       let tempReactions = { ...postReactions }
-      tempReactions[emoji] = tempReactions[emoji].filter(fullName => fullName != user?.fullName);
-      setPostReactions(tempReactions);
+      tempReactions[emoji] = tempReactions[emoji].filter(
+        (fullName) => fullName != user?.fullName
+      )
+      setPostReactions(tempReactions)
     }
   }
 

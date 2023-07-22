@@ -1,6 +1,8 @@
 "use client"
 
 import React from "react"
+import supabaseClient from "@/constants/constants"
+import { useUser } from "@clerk/nextjs"
 import { Users } from "lucide-react"
 
 import {
@@ -19,6 +21,10 @@ import { Input } from "../ui/input"
 type Props = {}
 
 export default function UploadButton({}: Props) {
+  const { user } = useUser()
+
+  const createSpace = async () => {}
+
   return (
     <div className="fixed bottom-0 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
       <Dialog>

@@ -1,87 +1,87 @@
 "use client"
 
-import React, { useState } from "react";
-import { UserPlus } from "lucide-react";
+import React, { useState } from "react"
+import supabaseClient from "@/constants/constants"
+import { useUser } from "@clerk/nextjs"
+import { UserPlus } from "lucide-react"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { useUser } from "@clerk/nextjs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import supabaseClient from "@/constants/constants";
+import { Badge } from "../ui/badge"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 type Props = {
-  friendCode: string;
-};
+  friendCode: string
+}
 
 export default function AddFriends({ friendCode }: Props) {
-  const [newFriendCode, setNewFriendCode] = useState("");
-  const [serverResponse, setServerResponse] = useState("");
+  const [newFriendCode, setNewFriendCode] = useState("")
+  const [serverResponse, setServerResponse] = useState("")
   const { user } = useUser()
 
   const addFriend = async () => {
-    setServerResponse("");
+    setServerResponse("")
 
     let { data, error } = await supabaseClient
-      .from('users')
+      .from("users")
       .select()
-      .eq('friend_code', newFriendCode);
+      .eq("friend_code", newFriendCode)
 
-    let friendData = data[0];
+    let friendData = data[0]
 
     if (error) {
       console.error(`Error fetching friend: ${error}`)
       setServerResponse(`Error fetching friend: ${error}`)
-      return;
+      return
     }
 
     if (!friendData) {
-      setServerResponse("Invalid friend code.");
-      return;
+      setServerResponse("Invalid friend code.")
+      return
     }
 
     if (friendData.id == user?.id) {
-      setServerResponse("You cannot add yourself!");
-      return;
+      setServerResponse("You cannot add yourself!")
+      return
     }
 
-    ({ data, error } = await supabaseClient
-      .from('users')
+    ;({ data, error } = await supabaseClient
+      .from("users")
       .select()
-      .eq('id', user?.id));
+      .eq("id", user?.id))
 
-      if (error) {
-        console.error(`Error fetching current friends: ${error}`)
-        setServerResponse(`Error fetching current friends: ${error}`)
-        return;
-      }
+    if (error) {
+      console.error(`Error fetching current friends: ${error}`)
+      setServerResponse(`Error fetching current friends: ${error}`)
+      return
+    }
 
-    const oldFriends = data[0].friends;
+    const oldFriends = data[0].friends
 
     if (oldFriends.includes(friendData.id)) {
-      setServerResponse(`You are already friends with ${friendData.full_name}!`);
-      return;
+      setServerResponse(`You are already friends with ${friendData.full_name}!`)
+      return
     }
 
-    ({ data, error } = await supabaseClient
-      .from('users')
-      .update({friends: [...oldFriends, friendData?.id]})
-      .eq('id', user?.id));
+    ;({ data, error } = await supabaseClient
+      .from("users")
+      .update({ friends: [...oldFriends, friendData?.id] })
+      .eq("id", user?.id))
 
     if (error) {
       console.error(`Error adding friend: ${error}`)
       setServerResponse(`Error adding friend: ${error}`)
-      return;
+      return
     }
 
-    setServerResponse(`Added ${friendData.full_name}.`);
-  };
+    setServerResponse(`Added ${friendData.full_name}.`)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/[^0-9]/g, "").slice(0, 6);
-    setNewFriendCode(input);
-  };
+    const input = e.target.value.replace(/[^0-9]/g, "").slice(0, 6)
+    setNewFriendCode(input)
+  }
 
   return (
     <div className="flex flex-1 justify-center rounded-xl py-2">
@@ -114,7 +114,13 @@ export default function AddFriends({ friendCode }: Props) {
               value={newFriendCode}
               onChange={handleInputChange}
             />
-            <Button size={"sm"} className="flex min-w-fit gap-2" onClick={() => {addFriend()}}>
+            <Button
+              size={"sm"}
+              className="flex min-w-fit gap-2"
+              onClick={() => {
+                addFriend()
+              }}
+            >
               <UserPlus size={18} />
               Add Friend
             </Button>
@@ -123,5 +129,5 @@ export default function AddFriends({ friendCode }: Props) {
         </TabsContent>
       </Tabs>
     </div>
-  );
+  )
 }
