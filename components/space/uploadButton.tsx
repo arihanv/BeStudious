@@ -1,86 +1,67 @@
 "use client"
 
-import React, { useState } from "react"
-import supabaseClient from "@/constants/constants"
+import { useState } from "react"
+import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
-import { Users } from "lucide-react"
+import moment from "moment"
+import { v4 as uuidv4 } from "uuid"
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import Post from "@/components/posts/post"
 
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-
-type Props = {}
-
-export default function UploadButton({}: Props) {
-  const { user, isSignedIn } = useUser()
-  const [spaceName, setSpaceName] = useState<string>("")
-  const [spaceLocation, setSpaceLocation] = useState<string>("")
-
-  const createSpace = async () => {
-    if (!isSignedIn) return
-
-    supabaseClient.from("spaces").insert({
-      location: spaceLocation,
-      name: spaceName,
-      users: [user?.fullName],
+export default function Upload({ posts, setPosts }) {
+  const { user } = useUser()
+  const [file, setFile] = useState([])
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      return;
+    }
+    const form = new FormData();
+    form.append("file", file)
+    const response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      body: form,
     })
+    const json = await response.json()
+    const imageUrl = json.attachments[0].url
+
+    let { data, error } = await supabaseClient
+      .from("images")
+      .insert([
+        {
+          name: `${user.firstName} ${user.lastName}`,
+          href: imageUrl,
+          userId: user.id,
+          profileUrl: user.imageUrl,
+         },
+      ])
+      .select()
+    // let newPost = (
+      <Post
+        // posts={posts}
+        // setPosts={setPosts}
+        postId={data[0].id}
+        name={data[0].name}
+        imageUrl={data[0].href}
+        createdAt={data[0].created_at}
+        profileImgUrl={data[0].profileUrl}
+        userId={data[0].userId}
+        key={data.length}
+      />
+    )
+    setPosts([newPost, ...posts]);
+  }
+
+  const handleFiles = (e) => {
+    setFile(e.target.files[0])
   }
 
   return (
-    <div className="fixed bottom-0 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
-      <Dialog>
-        <DialogTrigger>
-          <div className="flex w-full items-center gap-3">
-            <button className="flex flex-1 items-center justify-between gap-3 rounded-xl border-4 border-slate-900 bg-blue-800 p-2 px-3 transition ease-in-out hover:scale-110">
-              <div className="flex items-center gap-3 px-2">
-                <Users />
-                <div className="text-lg font-semibold">Make A Space</div>
-              </div>
-            </button>
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Make A Space</DialogTitle>
-            <DialogDescription className="flex flex-col gap-5 pt-2">
-              <div>
-                <label className="mb-10 text-sm font-medium">Name</label>
-                <Input
-                  value={spaceName}
-                  onChange={(e) => setSpaceName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="mb-10 text-sm font-medium">Location</label>
-                <Input
-                  value={spaceLocation}
-                  onChange={(e) => setSpaceLocation(e.target.value)}
-                />
-              </div>
-            </DialogDescription>
-            <DialogFooter className="flex w-full flex-1 items-center justify-center pt-2">
-              <div className="m-auto">
-                <Button
-                  onClick={() => {
-                    createSpace()
-                  }}
-                >
-                  Make Space
-                </Button>
-              </div>
-            </DialogFooter>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="file" name="image" onChange={handleFiles} />
+        <button type="submit">Upload Picture</button>
+      </form>
     </div>
   )
 }
