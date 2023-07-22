@@ -12,26 +12,6 @@ export default function IndexPage() {
   const [posts, setPosts] = useState([])
   const [dailyPrompt, setDailyPrompt] = useState("")
 
-  const deletePost = async (postId: any) => {
-    const { error } = await supabaseClient
-      .from('images')
-      .delete()
-      .eq('id', postId)
-
-    if (error) {
-      console.error("Error when deleting post", error)
-    } else {
-      console.log("Post deleted.")
-      
-      let tempPosts = [...posts];
-      tempPosts.filter(post => {
-        return post.props.postId != postId;
-      });
-
-      setPosts(tempPosts)
-    }
-  }
-
   useEffect(() => {
     const fetchPrompt = async () => {
       const { data, error } = await supabaseClient
@@ -61,10 +41,10 @@ export default function IndexPage() {
       </div>
       <div className="fixed bottom-0 z-20 mb-5 w-fit rounded-xl p-2 shadow-sm shadow-black backdrop-blur-sm">
         <div className="w-fit rounded-xl border-2 bg-blue-800 px-2.5 py-1 text-sm font-semibold">
-          <Upload posts={posts} setPosts={setPosts} deletePost={deletePost} />
+          <Upload posts={posts} setPosts={setPosts} />
         </div>
       </div>
-      <Posts posts={posts} setPosts={setPosts} deletePost={deletePost} />
+      <Posts posts={posts} setPosts={setPosts} />
     </section>
   )
 }

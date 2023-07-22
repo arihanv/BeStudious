@@ -4,6 +4,8 @@ import React from "react"
 import { MoreVertical, Flag } from "lucide-react"
 import moment from "moment"
 import { useUser } from "@clerk/nextjs"
+import supabaseClient from "@/constants/constants"
+
 
 import {
   Menubar,
@@ -17,13 +19,14 @@ import Reactions from "./reactions"
 import Delete from "./delete"
 
 type Props = {
+  posts: any
+  setPosts(arg0: any): void,
   postId: Number,
   name: string
   imageUrl: string
   createdAt: string
   profileImgUrl: string,
   userId: string,
-  deletePost?(postId: any): void
 }
 
 export default function Post({
@@ -33,8 +36,27 @@ export default function Post({
   createdAt,
   profileImgUrl,
   userId,
-  deletePost
 }: Props) {
+  const deletePost = async (postId: any) => {
+    const { error } = await supabaseClient
+      .from('images')
+      .delete()
+      .eq('id', postId)
+
+    if (error) {
+      console.error("Error when deleting post", error)
+    } else {
+      console.log("Post deleted.")
+
+      let tempPosts = [...posts];
+      tempPosts.filter(post => {
+        return post.props.postId != postId;
+      });
+
+      setPosts(tempPosts)
+    }
+  }
+  
   const { user } = useUser()
 
   const currentTime = moment()
@@ -74,13 +96,13 @@ export default function Post({
             <MenubarContent side="bottom">
               {userId === user?.id ?
                 (<div>
-                  <MenubarItem onClick={() => { !!deletePost && deletePost(postId) }}>
+                  <MenubarItem onClick={() => { deletePost(postId) }}>
                     <div className="flex items-center gap-2" ><Delete /></div>
                   </MenubarItem>
                 </div>)
                 :
                 (<div>
-                  <MenubarItem onClick={() => { !!deletePost && deletePost(postId) }}>
+                  <MenubarItem>
                     <div className="flex items-center gap-2" ><Flag size={20} color="red" /> Report</div>
                   </MenubarItem>
                 </div>)

@@ -8,7 +8,7 @@ import moment from "moment";
 
 import Post from "@/components/posts/post"
 
-export default function Upload({ posts, setPosts, deletePost }) {
+export default function Upload({ posts, setPosts }) {
   const { user } = useUser()
   const [file, setFile] = useState([])
   const handleSubmit = async (e) => {
@@ -75,7 +75,8 @@ export default function Upload({ posts, setPosts, deletePost }) {
 
     let newPost = (
       <Post
-        deletePost={deletePost}
+        posts={posts}
+        setPosts={setPosts}
         postId={data[0].id}
         name={data[0].name}
         imageUrl={data[0].href}

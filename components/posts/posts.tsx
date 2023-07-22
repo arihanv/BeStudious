@@ -6,7 +6,6 @@ import Post from "./post"
 type Props = {
   posts: any
   setPosts(arg0: any): void,
-  deletePost(postId: any): void
 }
 
 type DataItem = {
@@ -16,7 +15,7 @@ type DataItem = {
   profileUrl: string
 }
 
-export default function Posts({ posts, setPosts, deletePost }: Props) {
+export default function Posts({ posts, setPosts }: Props) {
   useEffect(() => {
     const fetchPosts = async () => {
       let fetchedPosts = []
@@ -34,7 +33,8 @@ export default function Posts({ posts, setPosts, deletePost }: Props) {
       for (let index in data as DataItem[]) {
         fetchedPosts.push(
           <Post
-            deletePost={deletePost}
+            posts={posts}
+            setPosts={setPosts}
             postId={data[index].id}
             name={data[index].name}
             imageUrl={data[index].href}
