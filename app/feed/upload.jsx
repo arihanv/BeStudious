@@ -17,14 +17,18 @@ export default function UploadButton({ posts, setPosts }) {
       .from("images")
       .select("created_at")
       .eq("userId", user.id);
-    if (data) {
-      console.log(`Data response: ${data[0].created_at}`);
+
+    if (data.length) {
+      const lastPostTimestamp = moment(data[0].created_at, moment.ISO_8601, true);
+      const twelveAmUtc = moment.utc().set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+
+      if (lastPostTimestamp.isAfter(twelveAmUtc)) {
+        alert("You can only post once every day! If you want to post again, please delete your previous post.")
+        return;
+      }
     }
 
-
-    
     e.preventDefault()
-    return
     if (!file) {
       return
     }
@@ -34,20 +38,19 @@ export default function UploadButton({ posts, setPosts }) {
       method: "POST",
       body: form,
     })
-    
-    let json;
-    
+    let json = await response.json()
+    let imageUrl;
+
     try {
-      json = await response.json()
+      imageUrl = json.attachments[0].url
     } catch (e) {
       response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL, {
         method: "POST",
         body: form,
       })
       json = await response.json()
+      imageUrl = json.attachments[0].url
     }
-
-    const imageUrl = json.attachments[0].url
 
     const { data: fetchData, error: fetchError } = await supabaseClient
       .from("images")
@@ -104,7 +107,7 @@ export default function UploadButton({ posts, setPosts }) {
   }
 
   return (
-    <div>
+    <div title="Upload">
       <form onSubmit={handleSubmit}>
         <label htmlFor="imageUpload">
           <Upload />
