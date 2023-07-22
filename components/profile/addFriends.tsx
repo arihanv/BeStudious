@@ -28,7 +28,7 @@ export default function AddFriends({ friendCode }: Props) {
       .select()
       .eq("friend_code", newFriendCode)
 
-    let friendData = data[0]
+    let friendData = data![0]
 
     if (error) {
       console.error(`Error fetching friend: ${error}`)
@@ -57,8 +57,8 @@ export default function AddFriends({ friendCode }: Props) {
       return
     }
 
-    const oldFriends = data[0].friends
-    const oldFriendIds = oldFriends.map((user) => user.id)
+    const oldFriends = data![0].friends
+    const oldFriendIds = oldFriends.map((user: any) => user.id)
 
     if (oldFriendIds.includes(friendData.id)) {
       setServerResponse(`You are already friends with ${friendData.full_name}!`)

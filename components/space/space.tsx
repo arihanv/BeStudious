@@ -1,5 +1,5 @@
 import React from "react"
-import { PlusCircle, UserPlus } from "lucide-react"
+import { User, UserPlus } from "lucide-react"
 import { useUser } from "@clerk/nextjs"
 import supabaseClient from "@/constants/constants"
 
@@ -14,13 +14,20 @@ export default function Space({ spaceId, spaceName, spaceLocation, users }: Prop
   const { user } = useUser();
 
   const joinSpace = async () => {
+    // Fetch latest users again
     let { data, error } = await supabaseClient
       .from('spaces')
-      .select();
+      .select()
+      .eq('id', spaceId);
+
+    if (error) {
+      console.error(`Error when refetching space: ${error}`)
+    }
 
     ({ data, error } = await supabaseClient
       .from('spaces')
-      .update({ users: [...data![0].users, user?.fullName] }));
+      .update({ users: [...data![0].users, user?.fullName] })
+      .eq('id', spaceId))
 
     window.location.reload();
   }
@@ -49,8 +56,8 @@ export default function Space({ spaceId, spaceName, spaceLocation, users }: Prop
       <div className="flex w-full justify-center">
         <button className="w-fit rounded-xl border-2 bg-blue-800 px-2.5 py-1 text-sm font-semibold">
           {" "}
-           <div className="flex items-center gap-1.5" onClick={() => { joinSpace() }}>
-            {inSpace ? "Joined" : <><UserPlus width={20} /> Join</>}
+           <div className="flex items-center gap-1.5" onClick={() => { if (!inSpace) joinSpace(); }}>
+            {inSpace ? <><User /> Joined</> : <><UserPlus width={20} /> Join</>}
           </div>
         </button>
       </div>

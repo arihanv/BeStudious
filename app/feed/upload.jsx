@@ -25,7 +25,7 @@ export default function Upload({ posts, setPosts }) {
     const json = await response.json();
     const imageUrl = json.attachments[0].url;
 
-    let { data, error } = await supabaseClient
+    const { data: fetchData, error: fetchError } = await supabaseClient
       .from("images")
       .insert([
         {
@@ -41,19 +41,24 @@ export default function Upload({ posts, setPosts }) {
       .from("users")
       .select("points")
       .eq("id", user.id)
-    console.log(countData);
+    const { data: newData, error: newDataError } = await supabaseClient
+      .from("users")
+      .update({"points": countData[0].points + 1})
+      .eq("id", user.id)
+      .select()
+    console.log(newData);
 
     let newPost = (
       <Post
         // posts={posts}
         // setPosts={setPosts}
-        postId={data[0].id}
-        name={data[0].name}
-        imageUrl={data[0].href}
-        createdAt={data[0].created_at}
-        profileImgUrl={data[0].profileUrl}
-        userId={data[0].userId}
-        key={data.length}
+        postId={fetchData[0].id}
+        name={fetchData[0].name}
+        imageUrl={fetchData[0].href}
+        createdAt={fetchData[0].created_at}
+        profileImgUrl={fetchData[0].profileUrl}
+        userId={fetchData[0].userId}
+        key={fetchData.length}
       />
     )
     setPosts([newPost, ...posts]);
