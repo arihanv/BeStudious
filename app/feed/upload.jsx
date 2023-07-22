@@ -22,10 +22,10 @@ export default function Upload({ posts, setPosts }) {
       method: "POST",
       body: form,
     })
-    const json = await response.json()
-    const imageUrl = json.attachments[0].url
+    const json = await response.json();
+    const imageUrl = json.attachments[0].url;
 
-    let { data: fetchData, error: fetchError } = await supabaseClient
+    let { data, error } = await supabaseClient
       .from("images")
       .insert([
         {
@@ -36,17 +36,24 @@ export default function Upload({ posts, setPosts }) {
          },
       ])
       .select()
-    // let newPost = (
+
+    const { data: countData, error: countError } = await supabaseClient
+      .from("users")
+      .select("points")
+      .eq("id", user.id)
+    console.log(countData);
+
+    let newPost = (
       <Post
         // posts={posts}
         // setPosts={setPosts}
-        postId={fetchData[0].id}
-        name={fetchData[0].name}
-        imageUrl={fetchData[0].href}
-        createdAt={fetchData[0].created_at}
-        profileImgUrl={fetchData[0].profileUrl}
-        userId={fetchData[0].userId}
-        key={posts.length}
+        postId={data[0].id}
+        name={data[0].name}
+        imageUrl={data[0].href}
+        createdAt={data[0].created_at}
+        profileImgUrl={data[0].profileUrl}
+        userId={data[0].userId}
+        key={data.length}
       />
     )
     setPosts([newPost, ...posts]);
