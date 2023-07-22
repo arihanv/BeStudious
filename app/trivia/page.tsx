@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import TriviaQuestion from "@/components/trivia/triviaQuestion"
 
 export default function Trivia() {
-  // const questions = await fetchQuestion()
   const [questions, setQuestions] = useState([])
   const [triviaData, setTriviaData] = useState([])
   const [userAnswers, setUserAnswers] = useState([null, null, null, null])

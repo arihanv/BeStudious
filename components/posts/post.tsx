@@ -52,6 +52,7 @@ export default function Post({
       console.error("Error when deleting post", error)
     } else {
       console.log("Post deleted.")
+      window.location.reload();
     }
   }
 
