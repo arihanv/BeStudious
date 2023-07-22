@@ -51,11 +51,12 @@ export default function Trivia() {
       return
     }
 
-    const currentTriviaUsers = data[0].users
+    const currentTriviaUsers = data![0].users
 
     if (currentTriviaUsers.includes(user?.id)) {
       alert("Sorry! You can only submit the trivia once per day.");
       window.location.href = "/leaderboard"
+      return;
     }
 
     ;({ data, error } = await supabaseClient
