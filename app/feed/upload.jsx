@@ -45,38 +45,40 @@ export default function Upload({ posts, setPosts }) {
       return
     }
 
-    ({ data, error } = await supabaseClient
+    const { data: firstData, error: firstError } = await supabaseClient
       .from("images")
       .select()
       .order("created_at", { ascending: false })
       .eq("userId", user.id)
       .limit(2)
-    )
+    
     
     if (error) {
       console.error("Error...", error);
     } 
     
-    const createdAtTime = data[1].created_at;
+    const {data: secondData, error: secondError} = await supabaseClient
+      .from("daily_prompt")
+      .select()
+      .order("created_at", { ascending: false})
+      .limit(1)
+    
 
-    const today = moment().startOf('day');
-    const time = moment('08:00:00', 'HH:mm:ss').utcOffset('-05:00');
+    const createdAtTime = firstData[1].created_at;
+    const secondTime = secondData[0].created_at;
 
-    const momentWithHardTime = moment(today).set({
-      hour: time.hour(),
-      minute: time.minute(),
-      second: time.second()
-    });
 
     const postedTime = moment(createdAtTime, moment.ISO_8601, true);
-    const hourDiff = Math.abs(momentWithHardTime.diff(postedTime, "hours"));
+    const secondPostedTime = moment(secondTime, moment.ISO_8601, true);
+    const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"));
     console.log(hourDiff);
+    
 
 
     let newPost = (
       <Post
-        posts={posts}
-        setPosts={setPosts}
+        // posts={posts}
+        // setPosts={setPosts}
         postId={data[0].id}
         name={data[0].name}
         imageUrl={data[0].href}

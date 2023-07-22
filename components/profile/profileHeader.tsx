@@ -6,12 +6,11 @@ import AddFriends from "./addFriends"
 
 type Props = {
   user: any
-  numPosts: number
+  numPosts: number,
+  friendCode: string
 }
 
-export default function ProfileHeader({ user, numPosts }: Props) {
-  const friendCode = "123456"
-  // user.imageUrl
+export default function ProfileHeader({ user, numPosts, friendCode }: Props) {
   return (
     <div className="flex h-full flex-1 flex-col gap-5">
       <div className="flex items-center gap-4">

@@ -19,8 +19,8 @@ import Reactions from "./reactions"
 import Delete from "./delete"
 
 type Props = {
-  posts: any
-  setPosts(arg0: any): void,
+  // posts: any
+  // setPosts(arg0: any): void,
   postId: Number,
   name: string
   imageUrl: string
@@ -30,6 +30,8 @@ type Props = {
 }
 
 export default function Post({
+  // posts,
+  // setPosts,
   postId,
   name,
   imageUrl,
@@ -48,12 +50,12 @@ export default function Post({
     } else {
       console.log("Post deleted.")
 
-      let tempPosts = [...posts];
-      tempPosts.filter(post => {
-        return post.props.postId != postId;
-      });
+      // let tempPosts = [...posts];
+      // tempPosts.filter(post => {
+      //   return post.props.postId != postId;
+      // });
 
-      setPosts(tempPosts)
+      // setPosts(tempPosts)
     }
   }
   
