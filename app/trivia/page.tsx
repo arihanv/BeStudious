@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react"
 import supabaseClient from "@/constants/constants.jsx"
+import { useUser } from "@clerk/nextjs"
 
 import { Button } from "@/components/ui/button"
 import TriviaQuestion from "@/components/trivia/triviaQuestion"
-
-import { useUser } from "@clerk/nextjs"
 
 export default function Trivia() {
   // const questions = await fetchQuestion()
@@ -36,33 +35,55 @@ export default function Trivia() {
   }, [])
 
   const handleSubmit = async () => {
-    alert("Submitted! Check Leaderboard")
-
-    let points = 0;
+    let correctPoints = 0
     for (let index in questions) {
       if (userAnswers[index] == questions[index].correctAnswer) {
-        points += 1;
+        correctPoints += 1
       }
     }
 
-    console.log(`${points} points`)
-
-    let { data } = await supabaseClient
+    let { data, error } = await supabaseClient
       .from("trivia_questions")
       .select()
-      .eq('id', triviaData.id);
+      .eq("id", triviaData.id)
 
-    const currentTriviaUsers = data.users;
-    
-    console.log(`Trivia users: ${currentTriviaUsers}`);
+    if (error) {
+      console.error(`Error when fetching trivia object: ${error}`)
+      return
+    }
 
-    ({ data } = await supabaseClient
+    const currentTriviaUsers = data[0].users
+
+    if (currentTriviaUsers.includes(user?.id)) {
+      alert("Sorry! You can only submit the trivia once per day.");
+      window.location.href = "/leaderboard"
+    }
+
+    ;({ data, error } = await supabaseClient
       .from("trivia_questions")
-      .update({users: [...currentTriviaUsers, user?.id]})
-      .eq('id', triviaData.id));
+      .update({ users: [...currentTriviaUsers, user?.id] })
+      .eq("id", triviaData.id))
 
-    console.log(data)
-      
+    if (error) {
+      console.error(`Error when updating trivia users: ${error}`)
+      return
+    }
+
+    ;({ data } = await supabaseClient.from("users").select().eq("id", user?.id))
+
+    let currentPoints = data[0].points
+
+    ;({ error } = await supabaseClient
+      .from("users")
+      .update({ points: currentPoints + correctPoints })
+      .eq("id", user.id))
+
+    if (error) {
+      console.error(`Error updating points: ${error}`)
+      return;
+    }
+
+    window.location.href = "/leaderboard"
   }
 
   return (
