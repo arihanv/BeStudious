@@ -133,7 +133,7 @@ export default function Post({
               {reactions.thumbsup && reactions.thumbsup.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger className="!cursor-default">
                       <div>👍 x {reactions.thumbsup.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
@@ -147,7 +147,7 @@ export default function Post({
               {reactions.fire && reactions.fire.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger className="!cursor-default">
                       <div>🔥 x {reactions.fire.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
@@ -161,7 +161,7 @@ export default function Post({
               {reactions.nerd && reactions.nerd.length > 0 && (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger className="!cursor-default">
                       <div>🤓 x {reactions.nerd.length}</div>
                     </TooltipTrigger>
                     <TooltipContent side="right">
