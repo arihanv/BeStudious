@@ -80,7 +80,7 @@ export default function Post({
         }}
         className="relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900"
       >
-        <Reactions />
+        <Reactions imgUrl={imageUrl}/>
       </div>
     </div>
   )
