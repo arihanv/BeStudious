@@ -68,10 +68,9 @@ export default function Upload({ posts, setPosts, deletePost }) {
       second: time.second()
     });
 
-    // const startTime = momentWithHardTime.format();
-    // const postedTime = moment(createdAtTime, moment.ISO_8601, true);
-    // const hourDiff = Math.abs(startTime.diff(postedTime, "hours"));
-    // console.log(hourDiff);
+    const postedTime = moment(createdAtTime, moment.ISO_8601, true);
+    const hourDiff = Math.abs(momentWithHardTime.diff(postedTime, "hours"));
+    console.log(hourDiff);
 
 
     let newPost = (

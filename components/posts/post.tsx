@@ -70,15 +70,20 @@ export default function Post({
               <MoreVertical />
             </MenubarTrigger>
             <MenubarContent side="bottom">
-            {userId === user?.id ?
-              (<div>
-                <MenubarItem onClick={() => { deletePost(postId) }}>
-                  <div className="flex items-center gap-2" ><Delete /></div>
-                </MenubarItem>
-              </div>)
-              :
-              <><Flag size={20} color="red" /> Report</>
-            }
+              {userId === user?.id ?
+                (<div>
+                  <MenubarItem onClick={() => { deletePost(postId) }}>
+                    <div className="flex items-center gap-2" ><Delete /></div>
+                  </MenubarItem>
+                </div>)
+                :
+                (<div>
+                  <MenubarItem onClick={() => { deletePost(postId) }}>
+                    <div className="flex items-center gap-2" ><Flag size={20} color="red" /> Report</div>
+                  </MenubarItem>
+                </div>)
+
+              }
 
             </MenubarContent>
           </MenubarMenu>
