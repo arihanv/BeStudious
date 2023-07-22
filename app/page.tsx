@@ -1,6 +1,5 @@
 import Link from "next/link"
 
-import { Github, Medal, Users, Puzzle } from "lucide-react"
 import { Contact, GraduationCap, Medal, Rss, Users } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
@@ -18,6 +17,8 @@ export default function IndexPage() {
           createdAt={date}
           imageUrl="https://cdn.discordapp.com/attachments/1123787740253786154/1132134958526369822/slZOAAAAFXRFWHRUaHVtYjo6U2l6ZQAzLjE0Nzg2TUL08octAAAAFnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly9QTkc6pipnIgAAAABJRU5ErkJggg.png"
           profileImgUrl="https://i.guim.co.uk/img/media/4d65894cd46a446612b10fbc1337fe9394c6d291/0_100_3112_1867/master/3112.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=41118f27e08c30514642e4a4c6723db2"
+          postId={0}
+          userId={"12"}
         />
         <div className="dark-shadow" />
       </div>

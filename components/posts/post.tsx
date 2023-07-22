@@ -23,7 +23,7 @@ type Props = {
   createdAt: string
   profileImgUrl: string,
   userId: string,
-  deletePost(postId: any): void
+  deletePost?(postId: any): void
 }
 
 export default function Post({
@@ -74,13 +74,13 @@ export default function Post({
             <MenubarContent side="bottom">
               {userId === user?.id ?
                 (<div>
-                  <MenubarItem onClick={() => { deletePost(postId) }}>
+                  <MenubarItem onClick={() => { !!deletePost && deletePost(postId) }}>
                     <div className="flex items-center gap-2" ><Delete /></div>
                   </MenubarItem>
                 </div>)
                 :
                 (<div>
-                  <MenubarItem onClick={() => { deletePost(postId) }}>
+                  <MenubarItem onClick={() => { !!deletePost && deletePost(postId) }}>
                     <div className="flex items-center gap-2" ><Flag size={20} color="red" /> Report</div>
                   </MenubarItem>
                 </div>)
