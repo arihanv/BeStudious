@@ -85,7 +85,10 @@
     left: 0;
     right: 0;
     height: 650px; /* Adjust the height as desired */
-    background: linear-gradient(to top, hsla(224, 71.4%, 4.1%, 1), hsla(224, 71.4%, 4.1%, 0)); /* Adjust the opacity and gradient as desired */
+    background: linear-gradient(
+      to top,
+      hsla(224, 71.4%, 4.1%, 1),
+      hsla(224, 71.4%, 4.1%, 0)
+    ); /* Adjust the opacity and gradient as desired */
   }
-
 }
