@@ -1,17 +1,28 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import supabaseClient from "@/constants/constants.jsx"
 import { useUser } from "@clerk/nextjs"
 import moment from "moment"
-import { v4 as uuidv4 } from "uuid"
+import { Upload } from "lucide-react"
 
 import Post from "@/components/posts/post"
 
-export default function Upload({ posts, setPosts }) {
+export default function UploadButton({ posts, setPosts }) {
   const { user } = useUser()
+  const fileInputRef = useRef(null);
   const [file, setFile] = useState([])
   const handleSubmit = async (e) => {
+    const { data } = await supabaseClient
+      .from("images")
+      .select("created_at")
+      .eq("userId", user.id);
+    // if (data) {
+      console.log(data);
+    // }
+
+
+
     e.preventDefault()
     if (!file) {
       return
@@ -63,15 +74,38 @@ export default function Upload({ posts, setPosts }) {
   }
 
   const handleFiles = (e) => {
-    setFile(e.target.files[0])
+    const selectedFile = e.target.files[0];
+
+    if (!selectedFile) {
+      return;
+    }
+
+    if (selectedFile.type !== "image/jpeg" && selectedFile.type !== "image/png") {
+      alert("Please select a JPG or PNG image.");
+      return;
+    }
+
+    setFile(selectedFile);
+
+    handleSubmit(e);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="file" name="image" onChange={handleFiles} />
-        <button type="submit">Upload Picture</button>
+        <label htmlFor="imageUpload">
+          <Upload />
+        </label>
+        <input
+          id="imageUpload"
+          name="imageUpload"
+          style={{ display: "none", visibility: "hidden", cursor: "pointer" }}
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          ref={fileInputRef}
+          onChange={handleFiles}
+        />
       </form>
     </div>
-  )
+  );
 }
