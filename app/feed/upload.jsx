@@ -17,13 +17,14 @@ export default function UploadButton({ posts, setPosts }) {
       .from("images")
       .select("created_at")
       .eq("userId", user.id);
-    // if (data) {
-      console.log(data);
-    // }
+    if (data) {
+      console.log(`Data response: ${data[0].created_at}`);
+    }
 
 
-
+    
     e.preventDefault()
+    return
     if (!file) {
       return
     }
