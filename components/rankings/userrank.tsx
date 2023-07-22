@@ -4,7 +4,7 @@ import { Flame } from "lucide-react"
 type Props = {
   imageUrl: string
   name: string
-  points: string
+  points: number
 }
 
 export default function UserRank({ imageUrl, name, points }: Props) {

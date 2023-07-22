@@ -6,10 +6,14 @@ import supabaseClient from "@/constants/constants.jsx"
 import { Button } from "@/components/ui/button"
 import TriviaQuestion from "@/components/trivia/triviaQuestion"
 
+import { useUser } from "@clerk/nextjs"
+
 export default function Trivia() {
   // const questions = await fetchQuestion()
   const [questions, setQuestions] = useState([])
+  const [triviaData, setTriviaData] = useState([])
   const [userAnswers, setUserAnswers] = useState([null, null, null, null])
+  const { user } = useUser()
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -24,15 +28,41 @@ export default function Trivia() {
         return null
       } else {
         setQuestions(data[0].questions)
+        setTriviaData(data[0])
         return data[0].questions
       }
     }
     fetchQuestion()
   }, [])
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     alert("Submitted! Check Leaderboard")
-    console.log(userAnswers)
+
+    let points = 0;
+    for (let index in questions) {
+      if (userAnswers[index] == questions[index].correctAnswer) {
+        points += 1;
+      }
+    }
+
+    console.log(`${points} points`)
+
+    let { data } = await supabaseClient
+      .from("trivia_questions")
+      .select()
+      .eq('id', triviaData.id);
+
+    const currentTriviaUsers = data.users;
+    
+    console.log(`Trivia users: ${currentTriviaUsers}`);
+
+    ({ data } = await supabaseClient
+      .from("trivia_questions")
+      .update({users: [...currentTriviaUsers, user?.id]})
+      .eq('id', triviaData.id));
+
+    console.log(data)
+      
   }
 
   return (
