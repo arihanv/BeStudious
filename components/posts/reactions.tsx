@@ -43,13 +43,12 @@ export default function Reactions({ imgUrl }: Props) {
     fetchEmojis()
   }, [])
 
-
   const handleEmojis = async (emoji: string) => {
     const { data: fetchData, error: fetchError } = await supabaseClient
       .from("images")
       .select(emoji)
       .eq("href", imgUrl)
-    if(fetchData == null) {
+    if (fetchData == null) {
       console.error("Error occured...", fetchError)
       return
     }
