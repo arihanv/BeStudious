@@ -71,6 +71,8 @@ export default function Upload({ posts, setPosts }) {
     const postedTime = moment(createdAtTime, moment.ISO_8601, true);
     const secondPostedTime = moment(secondTime, moment.ISO_8601, true);
     const hourDiff = Math.abs(secondPostedTime.diff(postedTime, "hours"));
+    console.log(postedTime);
+    console.log(secondPostedTime);
     console.log(hourDiff);
     
 
