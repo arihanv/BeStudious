@@ -2,12 +2,17 @@ import React from "react"
 import { PlusCircle, UserPlus } from "lucide-react"
 
 type Props = {
+  spaceId: number,
   spaceName: string,
   spaceLocation: string,
   users: Array<any>
 }
 
-export default function Space({ spaceName, spaceLocation, users }: Props) {
+export default function Space({ spaceId, spaceName, spaceLocation, users }: Props) {
+  const joinSpace = async () => {
+    console.log(spaceId)
+  }
+
   let usersList = [];
   for (let index in users) {
     usersList.push(<li key={index}>{users[index]}</li>);
@@ -29,7 +34,7 @@ export default function Space({ spaceName, spaceLocation, users }: Props) {
       <div className="flex w-full justify-center">
         <button className="w-fit rounded-xl border-2 bg-blue-800 px-2.5 py-1 text-sm font-semibold">
           {" "}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5" onClick={() => {joinSpace()}}>
             <UserPlus width={20} /> Join
           </div>
         </button>

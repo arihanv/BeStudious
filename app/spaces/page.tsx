@@ -13,7 +13,7 @@ export default function IndexPage() {
         Studious Spaces
       </div>
       <SpaceGrid spaces={spaces} setSpaces={setSpaces} />
-      <UploadButton spaces={spaces} setSpaces={setSpaces} />
+      <UploadButton />
     </section>
   )
 }

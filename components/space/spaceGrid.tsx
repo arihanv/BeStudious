@@ -21,7 +21,7 @@ export default function SpaceGrid({ spaces, setSpaces }: Props) {
 
       if (!error) {
         for (let space of data) {
-          tempSpaces.push(<Space users={space.users} spaceName={space.name} spaceLocation={space.location} />)
+          tempSpaces.push(<Space spaceId={space.id} users={space.users} spaceName={space.name} spaceLocation={space.location} />)
         }
       } else {
         console.error(`Error when fetching spaces: ${error}`)
