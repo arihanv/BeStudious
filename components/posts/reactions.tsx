@@ -18,37 +18,47 @@ type Props = {
 export default function Reactions({imgUrl}: Props) {
   const { user } = useUser()
 
-  const handleThumbsUp = async (e) => {
+  const handleThumbsUp = async (emoji) => {
     const { data: fetchData, error: fetchError } = await supabaseClient
       .from('images')
-      .select("thumbsup")
-      .eq('href', imgUrl)
+      .select(emoji)
+      .eq('href', imgUrl);
 
-    if (!fetchData[0].thumbsup.find(user.id)) {
-      if (fetchData[0].thumbsup === null) {
-        const { data: insertData, error: insertError } = await supabaseClient 
-          .from("images")
-          .update([{ thumbsup: [ user.id ] }])
-          .eq("href", imgUrl)
-          .select()
-        if (insertError) {
-          console.error("Error occured...", insertError);
-        }
-      } else {
-        let array = fetchData[0].thumbsup;
-        array.push(user.id);
-        const { data: insertData, error: insertError } = await supabaseClient 
-          .from("images")
-          .update([{ thumbsup: array }])
-          .eq("href", imgUrl)
-          .select()
-        if (insertError) {
-          console.error("Error occured...", insertError);
-        }      
+    if (fetchData[0][emoji] === null) {
+      const { data: insertData, error: insertError } = await supabaseClient 
+        .from("images")
+        .update([{ [emoji]: [ user.id ] }])
+        .eq("href", imgUrl)
+        .select()
+      if (insertError) {
+        console.error("Error occured...", insertError);
       }
-      console.log("registered!");
+    } else if (!(fetchData[0][emo]).includes(user.id)) {
+      let array = fetchData[0].thumbsup;
+      array.push(user.id);
+      const { data: insertData, error: insertError } = await supabaseClient 
+        .from("images")
+        .update([{ thumbsup: array }])
+        .eq("href", imgUrl)
+        .select()
+      if (insertError) {
+        console.error("Error occured...", insertError);
+      }     
     } else {
-      console.log("already registered......");
+      let array = fetchData[0].thumbsup;
+      const i = array.indexOf(user.id);
+      array.splice(i, 1);
+      if (array.length === 0) {
+        array = null;
+      }
+      const { data: insertData, error: insertError } = await supabaseClient 
+        .from("images")
+        .update([{ thumbsup: array }])
+        .eq("href", imgUrl)
+        .select()
+      if (insertError) {
+        console.error("Error occured...", insertError);
+      }   
     }
   }
 
