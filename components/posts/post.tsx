@@ -55,7 +55,11 @@ export default function Post({
     }
   }
 
-  const [postReactions, setPostReactions] = useState(reactions);
+  const [postReactions, setPostReactions] = useState(reactions || {
+    thumbsup: [],
+    fire: [],
+    nerd: [],
+  });
   const { user } = useUser()
 
   const currentTime = moment()

@@ -90,10 +90,7 @@ export default function Reactions({ postId, postReactions, setPostReactions }: P
       }
 
       let tempReactions = { ...postReactions }
-      tempReactions[emoji].filter(fullName => {
-        console.log(fullName, user?.fullName)
-        return fullName != user?.fullName;
-      });
+      tempReactions[emoji] = tempReactions[emoji].filter(fullName => fullName != user?.fullName);
       setPostReactions(tempReactions);
     }
   }
