@@ -13,6 +13,12 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import Delete from "./delete"
 import Reactions from "./reactions"
@@ -125,13 +131,46 @@ export default function Post({
           <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-sm">
             <div className="flex flex-col gap-1">
               {reactions.thumbsup && reactions.thumbsup.length > 0 && (
-                <div>👍 x {reactions.thumbsup.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>👍 x {reactions.thumbsup.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {reactions.thumbsup.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {reactions.fire && reactions.fire.length > 0 && (
-                <div>🔥 x {reactions.fire.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>🔥 x {reactions.fire.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {reactions.fire.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {reactions.nerd && reactions.nerd.length > 0 && (
-                <div>🤓 x {reactions.nerd.length}</div>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="!cursor-default">
+                      <div>🤓 x {reactions.nerd.length}</div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      {reactions.nerd.map((name: string) => (
+                        <p>{name}</p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
             </div>
           </div>
