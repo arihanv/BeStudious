@@ -18,25 +18,23 @@ import Delete from "./delete"
 import Reactions from "./reactions"
 
 type Props = {
-  // posts: any
-  // setPosts(arg0: any): void,
   postId: Number
   name: string
   imageUrl: string
   createdAt: string
   profileImgUrl: string
   userId: string
+  reactions?: any
 }
 
 export default function Post({
-  // posts,
-  // setPosts,
   postId,
   name,
   imageUrl,
   createdAt,
   profileImgUrl,
   userId,
+  reactions,
 }: Props) {
   const deletePost = async (postId: any) => {
     const { error } = await supabaseClient
@@ -48,13 +46,6 @@ export default function Post({
       console.error("Error when deleting post", error)
     } else {
       console.log("Post deleted.")
-
-      // let tempPosts = [...posts];
-      // tempPosts.filter(post => {
-      //   return post.props.postId != postId;
-      // });
-
-      // setPosts(tempPosts)
     }
   }
 
@@ -130,6 +121,21 @@ export default function Post({
         className="relative flex h-[450px] items-center justify-center rounded-xl border-2 border-black bg-slate-800 p-2 ring-2 ring-slate-900"
       >
         <Reactions imgUrl={imageUrl} />
+        {reactions && (
+          <div className="absolute bottom-0 left-0 rounded-tr-xl bg-black p-2 text-sm">
+            <div className="flex flex-col gap-1">
+              {reactions.thumbsup && reactions.thumbsup.length > 0 && (
+                <div>👍 x {reactions.thumbsup.length}</div>
+              )}
+              {reactions.fire && reactions.fire.length > 0 && (
+                <div>🔥 x {reactions.fire.length}</div>
+              )}
+              {reactions.nerd && reactions.nerd.length > 0 && (
+                <div>🤓 x {reactions.nerd.length}</div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
