@@ -1,6 +1,6 @@
 # BeStudious - Your Ultimate Learning Hub! 🚀🎓
 
-Welcome to the BeStudious repository! BeStudious is a dynamic online learning community designed to redefine your educational experience and foster continuous growth and collaboration. Join us on this exciting journey of learning and self-improvement.
+BeStudious is a dynamic online learning community designed to redefine your educational experience and foster continuous growth and collaboration.
 
 ## Demo Video
 
