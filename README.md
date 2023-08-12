@@ -14,6 +14,8 @@ BeStudious is a dynamic online learning community designed to redefine your educ
 
 BeStudious is a student-driven platform that goes beyond traditional education, providing you with daily AI-generated prompts, interactive learning feeds, trivia challenges, and a supportive community of learners from diverse backgrounds.
 
+BeStudious was envisioned and created by a passionate team of high schoolers, driven by the belief that learning knows no bounds. We have crafted this platform to empower students in their pursuit of knowledge.
+
 ### Key Highlights:
 
 1️⃣ **Daily AI-Generated Prompts:** Elevate your learning with engaging daily prompts tailored to expand your horizons and challenge your skills. 🧠📖
@@ -76,13 +78,3 @@ To get started with BeStudious, follow these steps:
    You can easily deploy the entire project on Vercel using the button below:
 
    [![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project)
-
-## Acknowledgements
-
-- BeStudious was envisioned and created by a passionate team of high schoolers, driven by the belief that learning knows no bounds. We have crafted this platform to empower students in their pursuit of knowledge.
-
-- We appreciate the contributions of the open-source community, which have helped shape BeStudious into what it is today.
-
-We are excited to have you join the BeStudious community and embark on your educational journey with us!
-
-🌐 [Visit BeStudious](https://BeStudious.vercel.app) 🌐
