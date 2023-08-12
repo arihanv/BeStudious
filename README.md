@@ -2,6 +2,10 @@
 
 Welcome to the BeStudious repository! BeStudious is a dynamic online learning community designed to redefine your educational experience and foster continuous growth and collaboration. Join us on this exciting journey of learning and self-improvement.
 
+## Demo Video
+
+[![Demo Video](http://img.youtube.com/vi/LqrgWfMvolo/0.jpg)](http://www.youtube.com/watch?v=LqrgWfMvolo)
+
 ## Join the BeStudious Community
 
 🌟 https://BeStudious.vercel.app 🌟
